@@ -12,14 +12,12 @@ namespace GoToApps.ObjectsPool
     [AddComponentMenu("GoTo-Apps/Objects Pool/Pool Manager")]
     public class PoolManager : MonoBehaviour
     {
-        [Header("Components")]
         [Tooltip("Parent game object transform for game objects in pool.")]
         [SerializeField] private Transform _poolParentTransform;
         
         [Tooltip("Game object prefab.")]
         [SerializeField] private GameObject _poolPrefab;
         
-        [Header("Settings")]
         [Tooltip("Automatic pool initialize.")]
         [SerializeField] private bool _selfInitialize;
         
