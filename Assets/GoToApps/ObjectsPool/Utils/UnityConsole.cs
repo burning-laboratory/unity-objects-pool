@@ -37,5 +37,21 @@ namespace GoToApps.ObjectsPool.Utils
             Debug.Log($"{{GoTo-Apps}} => [{className}] - ({methodName}) -> {message}");
 #endif
         }
+        
+        /// <summary>
+        /// Draw log record to console.
+        /// </summary>
+        /// <param name="className">Class name</param>
+        /// <param name="methodName">Method name</param>
+        /// <param name="message">Message</param>
+        /// <param name="context">GameObject context.</param>>
+        public static void PrintLog(string moduleName,string className, string methodName, string message)
+        {
+#if UNITY_EDITOR
+            Debug.Log($"{{<b><color=white>{moduleName}</color></b>}} => [{className}] - (<color=yellow>{methodName}</color>) -> {message}");
+#else
+            Debug.Log($"{{GoTo-Apps}} => [{className}] - ({methodName}) -> {message}");
+#endif
+        }
     }
 }
