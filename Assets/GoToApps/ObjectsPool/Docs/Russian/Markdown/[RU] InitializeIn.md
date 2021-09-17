@@ -6,7 +6,7 @@
 
 - **-** **`InitializeIn.Awake`** - Инициализация пула в методе `MonoBehaviour.Awake`.
 
-- 
+
 - **-** **`InitializeIn.Start`** - Инициализация пула в методе `MonoBehaviour.Start`.
 
 
