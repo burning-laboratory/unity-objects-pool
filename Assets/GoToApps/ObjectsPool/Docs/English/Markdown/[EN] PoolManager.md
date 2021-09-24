@@ -40,13 +40,13 @@
 - **-** **`PoolManager.AddItemToPool(PoolableItem)`** **`void`** - Add 'PoolableItem' to pool.
 
 
-- **-** **`PoolManager.AddObjectToPool(GameObject)`** **`void`** - Add object to pool..
+- **-** **`PoolManager.AddObjectToPool(GameObject)`** **`void`** - Add object to pool.
 
 
-- **-** **`PoolManager.AddItemsToPool(List<PoolableItem>)`** **`void`** - Add poolable items collection to pool..
+- **-** **`PoolManager.AddItemsToPool(List<PoolableItem>)`** **`void`** - Add poolable items collection to pool.
 
 
-- **-** **`PoolManager.AddObjectsToPool(List<GameObject>)`** **`void`** - Add game objects collection to pool..
+- **-** **`PoolManager.AddObjectsToPool(List<GameObject>)`** **`void`** - Add game objects collection to pool.
 
 
 - **-** **`PoolManager.GetItemFromPool()`** **`PoolableItem`** - Return PoolableItem from pool.
@@ -55,10 +55,10 @@
 - **-** **`PoolManager.GetObjectFromPool()`** **`GameObject`** - Return game object from pool.
 
 
-- **-** **`PoolManager.GetItemsFromPool(int)`** **`List<PoolableItem>`** - Return list of poolable items from pool..
+- **-** **`PoolManager.GetItemsFromPool(int)`** **`List<PoolableItem>`** - Return list of poolable items from pool.
 
 
-- **-** **`PoolManager.GetObjectsFromPool(int)`** **`List<GameObject>`** - Return list of game objects from pool..
+- **-** **`PoolManager.GetObjectsFromPool(int)`** **`List<GameObject>`** - Return list of game objects from pool.
 
 ## Examples:
 
