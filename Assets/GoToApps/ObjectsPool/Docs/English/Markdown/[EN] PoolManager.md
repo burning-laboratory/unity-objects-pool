@@ -16,7 +16,7 @@
 - **-** **`Initialize pool size (int)`** - The size of the pool during initialization. The number of objects to be created during initialization.
 
 
-- **-** **`Initialize int (InitializeIn)`** - Select the method in which initialization will take place. See the documentation for the InitializeIn type,
+- **-** **`Initialize in (InitializeIn)`** - Select the method in which initialization will take place. See the documentation for the InitializeIn type.
 
 
 - **-** **`Show Debug Logs (bool)`** - Specifies whether to output logs for developers. To output logs, Debug.Log is used.
