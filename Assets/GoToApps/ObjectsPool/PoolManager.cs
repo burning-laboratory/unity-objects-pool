@@ -87,6 +87,8 @@ namespace GoToApps.ObjectsPool
 
         private void Awake()
         {
+            if (_poolParentTransform == null) _poolParentTransform = transform;
+            
             if (_selfInitialize && _initializeIn == InitializeIn.Awake)
             {
                 InitializePool();
