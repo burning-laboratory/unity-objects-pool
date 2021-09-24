@@ -14,18 +14,34 @@ namespace GoToApps.ObjectsPool
     {
         [Tooltip("Parent game object transform for game objects in pool.")]
         [SerializeField] private Transform _poolParentTransform;
-        
-        [Tooltip("Game object prefab.")]
-        [SerializeField] private GameObject _poolPrefab;
-        
+
         [Tooltip("Automatic pool initialize.")]
         [SerializeField] private bool _selfInitialize;
         
-        [Tooltip("Set initialize game objects count.")]
-        [SerializeField] private int _initializePoolSize;
-        
         [Tooltip("Set initialize pool method.")]
         [SerializeField] private InitializeIn _initializeIn;
+        
+        [Tooltip("Type of self pool initialization.")]
+        //TODO: Add property to pool manager documentation.
+        [SerializeField] private SelfInitializeType _initializeType;
+
+        [Tooltip("The number of passes through the list during initialization.")]
+        //TODO: Add property to pool manager documentation.
+        [SerializeField] private int _iterationsCount;
+
+        [Tooltip("The need to create each object from the list. Enabling this parameter ensures that after initialization, all the objects from the list above will be in the pool.")]
+        //TODO: Add property to pool manager documentation.
+        [SerializeField] private bool _createAllObjects;
+
+        [Tooltip("Prefabs list.")]
+        //TODO: Add property to pool manager documentation.
+        [SerializeField] private List<GameObject> _prefabs;
+
+        [Tooltip("Game object prefab.")]
+        [SerializeField] private GameObject _poolPrefab;
+
+        [Tooltip("Set initialize game objects count.")]
+        [SerializeField] private int _initializePoolSize;
 
         [Tooltip("Show debug logs.")]
         [SerializeField] private bool _showDebugLogs;
@@ -49,7 +65,7 @@ namespace GoToApps.ObjectsPool
             }
             else throw new ObjectsPoolException("PoolableItem component not found on instantiated game object.");
         }
-        
+
         /// <summary>
         /// Initialize pool.
         /// </summary>
