@@ -16,7 +16,7 @@ namespace GoToApps.ObjectsPool.Editor
         private SerializedProperty _selfInitialize;
         private SerializedProperty _initializePoolSize;
         private SerializedProperty _initializeIn;
-        private SerializedProperty _initializeType;
+        private SerializedProperty _initializeMode;
         private SerializedProperty _iterationsCount;
         private SerializedProperty _createAllObjects;
         private SerializedProperty _prefabs;
@@ -34,7 +34,7 @@ namespace GoToApps.ObjectsPool.Editor
             _initializePoolSize = serializedObject.FindProperty("_initializePoolSize");
             _initializeIn = serializedObject.FindProperty("_initializeIn");
             _showDebugLogs = serializedObject.FindProperty("_showDebugLogs");
-            _initializeType = serializedObject.FindProperty("_initializeType");
+            _initializeMode = serializedObject.FindProperty("_initializeMode");
             _iterationsCount = serializedObject.FindProperty("_iterationsCount");
             _createAllObjects = serializedObject.FindProperty("_createAllObjects");
             _prefabs = serializedObject.FindProperty("_prefabs");
@@ -51,23 +51,23 @@ namespace GoToApps.ObjectsPool.Editor
             bool selfInitialize = _selfInitialize.boolValue;
             if (selfInitialize)
             {
-                EditorGUILayout.PropertyField(_initializeType);
-                SelfInitializeType initializeType = (SelfInitializeType) _initializeType.enumValueIndex;
-                switch (initializeType)
+                EditorGUILayout.PropertyField(_initializeMode);
+                SelfInitializeMode initializeMode = (SelfInitializeMode) _initializeMode.enumValueIndex;
+                switch (initializeMode)
                 {
-                    case SelfInitializeType.SinglePrefab:
+                    case SelfInitializeMode.SinglePrefab:
                         EditorGUILayout.PropertyField(_poolPrefab);
                         EditorGUILayout.PropertyField(_initializePoolSize);
                         break;
                     
-                    case SelfInitializeType.MultiplePrefabs:
+                    case SelfInitializeMode.MultiplePrefabs:
                         EditorGUILayout.PropertyField(_prefabs);
                         EditorGUILayout.PropertyField(_createAllObjects);
                         bool createAllObjects = _createAllObjects.boolValue;
                         EditorGUILayout.PropertyField(createAllObjects ? _iterationsCount : _initializePoolSize);
                         break;
                     
-                    case SelfInitializeType.InitializeTemplate:
+                    case SelfInitializeMode.InitializeTemplate:
                         EditorGUILayout.PropertyField(_prefabs);
                         break;
                 }
