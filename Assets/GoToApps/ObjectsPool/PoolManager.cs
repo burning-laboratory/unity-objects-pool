@@ -25,32 +25,32 @@ namespace GoToApps.ObjectsPool
         
         [Tooltip("Type of self pool initialization.")]
         //TODO: Add property to pool manager documentation.
-        [SerializeField] private SelfInitializeType _initializeType;
-
-        [Tooltip("The number of passes through the list during initialization.")]
-        //TODO: Add property to pool manager documentation.
-        [SerializeField] private int _iterationsCount;
-
-        [Tooltip("The need to create each object from the list. Enabling this parameter ensures that after initialization, all the objects from the list above will be in the pool.")]
-        //TODO: Add property to pool manager documentation.
-        [SerializeField] private bool _createAllObjects;
-
-        [Tooltip("Prefabs list.")]
-        //TODO: Add property to pool manager documentation.
-        [SerializeField] private List<GameObject> _prefabs;
+        [SerializeField] private SelfInitializeMode _initializeMode;
 
         [Tooltip("Game object prefab.")]
         [SerializeField] private GameObject _poolPrefab;
+        
+        [Tooltip("Prefabs list.")]
+        [SerializeField] private List<GameObject> _prefabs;
 
         [Tooltip("Set initialize game objects count.")]
         [SerializeField] private int _initializePoolSize;
+        
+        [Tooltip("The number of passes through the list during initialization.")]
+        [SerializeField] private int _iterationsCount;
+
+        [Tooltip("The need to create each object from the list. Enabling this parameter ensures that after initialization, all the objects from the list above will be in the pool.")]
+        [SerializeField] private bool _createAllObjects;
 
         [Tooltip("Show debug logs.")]
         [SerializeField] private bool _showDebugLogs;
-
-        [SerializeField] private bool _showPoolOperationLogs;
+        
+        [Tooltip("Displays a message with the initialization time of the pool.")]
         [SerializeField] private bool _showPoolInitializerLogs;
         
+        [Tooltip("Displays operations with pool objects in the logs.")]
+        [SerializeField] private bool _showPoolOperationLogs;
+
         private readonly Queue<PoolableItem> _pool = new Queue<PoolableItem>();
         
         private bool _initialized;
@@ -89,9 +89,9 @@ namespace GoToApps.ObjectsPool
         private void InitializePool()
         {
             DateTime startDt = DateTime.Now;
-            switch (_initializeType)
+            switch (_initializeMode)
             {
-                case SelfInitializeType.SinglePrefab:
+                case SelfInitializeMode.SinglePrefab:
                     for (int i = 0; i < _initializePoolSize; i++)
                     {
                         PoolableItem poolableItem = CreatePoolableItem(_poolPrefab, _poolParentTransform);
@@ -99,7 +99,7 @@ namespace GoToApps.ObjectsPool
                     }
                     break;
                 
-                case SelfInitializeType.MultiplePrefabs:
+                case SelfInitializeMode.MultiplePrefabs:
                     List<PoolableItem> poolableItems = new List<PoolableItem>();
                     if (_createAllObjects)
                     {
@@ -130,7 +130,7 @@ namespace GoToApps.ObjectsPool
                     }
                     break;
                 
-                case SelfInitializeType.InitializeTemplate:
+                case SelfInitializeMode.InitializeTemplate:
                     for (int i = 0; i < _iterationsCount; i++)
                     {
                         foreach (GameObject prefab in _prefabs)
