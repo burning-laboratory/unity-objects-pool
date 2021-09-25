@@ -16,11 +16,14 @@ namespace GoToApps.ObjectsPool.Editor
         private SerializedProperty _selfInitialize;
         private SerializedProperty _initializePoolSize;
         private SerializedProperty _initializeIn;
-        private SerializedProperty _showDebugLogs;
         private SerializedProperty _initializeType;
         private SerializedProperty _iterationsCount;
         private SerializedProperty _createAllObjects;
         private SerializedProperty _prefabs;
+        private SerializedProperty _showDebugLogs;
+        private SerializedProperty _showPoolOperationLogs;
+        private SerializedProperty _showPoolInitializerLogs;
+        
         private void OnEnable()
         {
             _model = (PoolManager) target;
@@ -35,6 +38,8 @@ namespace GoToApps.ObjectsPool.Editor
             _iterationsCount = serializedObject.FindProperty("_iterationsCount");
             _createAllObjects = serializedObject.FindProperty("_createAllObjects");
             _prefabs = serializedObject.FindProperty("_prefabs");
+            _showPoolOperationLogs = serializedObject.FindProperty("_showPoolOperationLogs");
+            _showPoolInitializerLogs = serializedObject.FindProperty("_showPoolInitializerLogs");
         }
 
         private void DrawFields()
@@ -70,6 +75,12 @@ namespace GoToApps.ObjectsPool.Editor
             }
 
             EditorGUILayout.PropertyField(_showDebugLogs);
+            bool showDebugLogs = _showDebugLogs.boolValue;
+            if (showDebugLogs)
+            {
+                EditorGUILayout.PropertyField(_showPoolInitializerLogs);
+                EditorGUILayout.PropertyField(_showPoolOperationLogs);
+            }
         }
 
         private void OnChanged(GameObject obj)
