@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using GoToApps.ObjectsPool.Exceptions;
 using UnityEngine;
 using GoToApps.ObjectsPool.Types;
 using GoToApps.ObjectsPool.Utils;
+using Random = System.Random;
 
 namespace GoToApps.ObjectsPool
 {
@@ -14,85 +16,152 @@ namespace GoToApps.ObjectsPool
     {
         [Tooltip("Parent game object transform for game objects in pool.")]
         [SerializeField] private Transform _poolParentTransform;
-        
-        [Tooltip("Game object prefab.")]
-        [SerializeField] private GameObject _poolPrefab;
-        
+
         [Tooltip("Automatic pool initialize.")]
         [SerializeField] private bool _selfInitialize;
         
+        [Tooltip("Set initialize pool method.")]
+        [SerializeField] private InitializeIn _initializeIn;
+        
+        [Tooltip("Type of self pool initialization.")]
+        //TODO: Add property to pool manager documentation.
+        [SerializeField] private SelfInitializeMode _initializeMode;
+
+        [Tooltip("Game object prefab.")]
+        [SerializeField] private GameObject _poolPrefab;
+        
+        [Tooltip("Prefabs list.")]
+        [SerializeField] private List<GameObject> _prefabs;
+
         [Tooltip("Set initialize game objects count.")]
         [SerializeField] private int _initializePoolSize;
         
-        [Tooltip("Set initialize pool method.")]
-        [SerializeField] private InitializeIn _initializeIn;
+        [Tooltip("The number of passes through the list during initialization.")]
+        [SerializeField] private int _iterationsCount;
+
+        [Tooltip("The need to create each object from the list. Enabling this parameter ensures that after initialization, all the objects from the list above will be in the pool.")]
+        [SerializeField] private bool _createAllObjects;
 
         [Tooltip("Show debug logs.")]
         [SerializeField] private bool _showDebugLogs;
         
+        [Tooltip("Displays a message with the initialization time of the pool.")]
+        [SerializeField] private bool _showPoolInitializerLogs;
+        
+        [Tooltip("Displays operations with pool objects in the logs.")]
+        [SerializeField] private bool _showPoolOperationLogs;
+
         private readonly Queue<PoolableItem> _pool = new Queue<PoolableItem>();
         
         private bool _initialized;
         
+        private List<T> MixArray<T>(List<T> data)
+        {
+            Random random = new Random();
+            for (int i = data.Count - 1; i >= 1; i--)
+            {
+                int j = random.Next(i + 1);
+                (data[j], data[i]) = (data[i], data[j]);
+            }
+
+            return data;
+        }
+
         /// <summary>
         /// Create poolable item and link to this pool.
         /// </summary>
         /// <returns>Created poolable item</returns>
-        private PoolableItem CreatePoolableItem()
+        private PoolableItem CreatePoolableItem(GameObject prefab, Transform parent)
         {
-            GameObject initializedItem = Instantiate(_poolPrefab, _poolParentTransform);
+            GameObject initializedItem = Instantiate(prefab, parent);
             if (initializedItem.TryGetComponent(out PoolableItem poolableItem))
             {
                 poolableItem.SetPool(this);
                 initializedItem.SetActive(false);
                 return poolableItem;
             }
-            else throw new ObjectsPoolException("PoolableItem component not found on instantiated game object.");
+            throw new ObjectsPoolException("PoolableItem component not found on instantiated game object.");
         }
-        
+
         /// <summary>
         /// Initialize pool.
         /// </summary>
         private void InitializePool()
         {
-            for (int i = 0; i < _initializePoolSize; i++)
+            DateTime startDt = DateTime.Now;
+            switch (_initializeMode)
             {
-                PoolableItem poolableItem = CreatePoolableItem();
-                _pool.Enqueue(poolableItem);
+                case SelfInitializeMode.SinglePrefab:
+                    for (int i = 0; i < _initializePoolSize; i++)
+                    {
+                        PoolableItem poolableItem = CreatePoolableItem(_poolPrefab, _poolParentTransform);
+                        _pool.Enqueue(poolableItem);
+                    }
+                    break;
+                
+                case SelfInitializeMode.MultiplePrefabs:
+                    List<PoolableItem> poolableItems = new List<PoolableItem>();
+                    if (_createAllObjects)
+                    {
+                        for (int i = 0; i < _iterationsCount; i++)
+                        {
+                            foreach (GameObject prefab in _prefabs)
+                            {
+                                PoolableItem poolableItem = CreatePoolableItem(prefab, _poolParentTransform);
+                                poolableItems.Add(poolableItem);
+                            }
+                        }
+
+                        poolableItems = MixArray(poolableItems);
+                        foreach (PoolableItem poolableItem in poolableItems)
+                        {
+                            _pool.Enqueue(poolableItem);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < _initializePoolSize; i++)
+                        {
+                            int index = UnityEngine.Random.Range(0, _prefabs.Count);
+                            GameObject prefab = _prefabs[index];
+                            PoolableItem poolableItem = CreatePoolableItem(prefab, _poolParentTransform);
+                            _pool.Enqueue(poolableItem);
+                        }
+                    }
+                    break;
+                
+                case SelfInitializeMode.InitializeTemplate:
+                    for (int i = 0; i < _iterationsCount; i++)
+                    {
+                        foreach (GameObject prefab in _prefabs)
+                        {
+                            PoolableItem poolableItem = CreatePoolableItem(prefab, _poolParentTransform);
+                            _pool.Enqueue(poolableItem);
+                        }
+                    }
+                    break;
             }
             
-            if (_showDebugLogs)
+            if (_showDebugLogs && _showPoolInitializerLogs)
             {
                 GameObject context = gameObject;
-                UnityConsole.PrintLog("PoolManager", "InitializePool", $"Instantiated {_initializePoolSize} {_poolPrefab.name}", context);
+                DateTime endDt = DateTime.Now;
+                TimeSpan initializeDelayTs = endDt - startDt;
+                
+                UnityConsole.PrintLog("PoolManager", "InitializePool", $"{context.name} initialized in: {initializeDelayTs.TotalMilliseconds}ms.", context);
             }   
             _initialized = true;
         }
 
         private void Awake()
         {
-            if (_selfInitialize && _initializeIn == InitializeIn.Awake)
-            {
-                InitializePool();
-                if (_showDebugLogs)
-                {
-                    GameObject context = gameObject;
-                    UnityConsole.PrintLog("PoolManager", "Awake", $"{context.name} successful initialized.", context);
-                }
-            }
+            if (_poolParentTransform == null) _poolParentTransform = transform;
+            if (_selfInitialize && _initializeIn == InitializeIn.Awake) InitializePool();
         }
         
         private void Start()
         {
-            if (_selfInitialize && _initializeIn == InitializeIn.Start)
-            {
-                InitializePool();
-                if (_showDebugLogs)
-                {
-                    GameObject context = gameObject;
-                    UnityConsole.PrintLog("PoolManager", "Awake", $"{context.name} successful initialized.", context);
-                }
-            }
+            if (_selfInitialize && _initializeIn == InitializeIn.Start) InitializePool();
         }
         
         /// <summary>
@@ -103,6 +172,8 @@ namespace GoToApps.ObjectsPool
             _initialized = false;
             _showDebugLogs = true;
             _selfInitialize = true;
+            _showPoolOperationLogs = true;
+            _showPoolInitializerLogs = true;
         }
         
         /// <summary>
@@ -113,46 +184,7 @@ namespace GoToApps.ObjectsPool
             if (_initialized) return;
             InitializePool();
         }
-        
-        /// <summary>
-        /// Initialize game objects pool.
-        /// </summary>
-        /// <param name="count">Initialize game objects count.</param>
-        public void Initialize(int count)
-        {
-            if (_initialized) return;
-            _initializePoolSize = count;
-            InitializePool();
-        }
-        
-        /// <summary>
-        /// Initialize game objects pool.
-        /// </summary>
-        /// <param name="count">Initialize game objects count.</param>
-        /// <param name="transform">Game objects parent transform.</param>
-        public void Initialize(int count, Transform transform)
-        {
-            if (_initialized) return;
-            _initializePoolSize = count;
-            _poolParentTransform = transform;
-            InitializePool();
-        }
-        
-        /// <summary>
-        /// Initialize game objects pool.
-        /// </summary>
-        /// <param name="prefab">Game object prefab.</param>
-        /// <param name="count">Initialize game objects count.</param>
-        /// <param name="transform">Game objects parent transform.</param>
-        public void Initialize(GameObject prefab, int count, Transform transform)
-        {
-            if (_initialized) return;
-            _initializePoolSize = count;
-            _poolParentTransform = transform;
-            _poolPrefab = prefab;
-            InitializePool();
-        }
-        
+
         /// <summary>
         /// Add poolable item to pool.
         /// </summary>
@@ -165,7 +197,7 @@ namespace GoToApps.ObjectsPool
             
             _pool.Enqueue(poolableItem);
             
-            if (_showDebugLogs)
+            if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
                 UnityConsole.PrintLog("PoolManager", "AddItemToPool", $"{item.name} add to {context.name}", context);
@@ -199,7 +231,7 @@ namespace GoToApps.ObjectsPool
                 _pool.Enqueue(poolableItem);
             }
 
-            if (_showDebugLogs)
+            if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
                 UnityConsole.PrintLog("PoolManager", "AddItemsToPool", $"{poolableItems.Count} items added to pool.", context);
@@ -218,7 +250,7 @@ namespace GoToApps.ObjectsPool
                 {
                     AddItemToPool(poolableItem);
                 }
-                else throw new ObjectsPoolException("PoolableItem component not found on instantiated game object.");
+                else throw new ObjectsPoolException("PoolableItem component not found on game object.");
             }
         }
         
@@ -230,21 +262,15 @@ namespace GoToApps.ObjectsPool
         {
             if (_pool.Count == 0)
             {
-                PoolableItem poolableItem = CreatePoolableItem();
-                _pool.Enqueue(poolableItem);
-                
-                if (_showDebugLogs)
-                {
-                    GameObject context = gameObject;
-                    UnityConsole.PrintLog("PoolManager", "InitializePool", $"Instantiated {poolableItem.name}", context);
-                }
+                // TODO: Add auto oversize.
+                throw new ObjectsPoolException("There are not enough objects in the pool.");
             }
             
             PoolableItem poolableItemFromPool = _pool.Dequeue();
             GameObject item = poolableItemFromPool.gameObject;
             item.gameObject.SetActive(true);
             
-            if (_showDebugLogs)
+            if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
                 UnityConsole.PrintLog("PoolManager", "GetItemFromPool", $"{item.name} returned from {context.name}", context);
@@ -271,18 +297,8 @@ namespace GoToApps.ObjectsPool
         {
             if (_pool.Count < count)
             {
-                int countDelta = count - _pool.Count;
-                for (int i = 0; i < countDelta; i++)
-                {
-                    PoolableItem poolableItem = CreatePoolableItem();
-                    _pool.Enqueue(poolableItem);
-                }
-
-                if (_showDebugLogs)
-                {
-                    GameObject context = gameObject;
-                    UnityConsole.PrintLog("PoolManager", "GetItemsFromPool", $"Initialized {countDelta}  {_poolPrefab.name}", context);
-                }
+                // TODO: Add auto oversize.
+                throw new ObjectsPoolException("There are not enough objects in the pool.");
             }
             
             List<PoolableItem> items = new List<PoolableItem>();
@@ -293,7 +309,7 @@ namespace GoToApps.ObjectsPool
                 items.Add(item);
             }
             
-            if (_showDebugLogs)
+            if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
                 UnityConsole.PrintLog("PoolManager", "GetItemsFromPool", $"{count} {_poolPrefab.name} returned from {context.name}", context);
