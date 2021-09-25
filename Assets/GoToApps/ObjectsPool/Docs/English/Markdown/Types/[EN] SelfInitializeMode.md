@@ -1,4 +1,4 @@
-# Self Initialize Type
+# Self Initialize Mode
 
 > An enumeration used to specify the type of automatic initialization of a pool of game objects.
 
