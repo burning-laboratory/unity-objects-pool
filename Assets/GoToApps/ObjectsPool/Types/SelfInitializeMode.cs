@@ -3,7 +3,7 @@ namespace GoToApps.ObjectsPool.Types
     /// <summary>
     /// Self initialize type.
     /// </summary>
-    public enum SelfInitializeType
+    public enum SelfInitializeMode
     {
         /// <summary>
         /// Add initialized single prefabs.
