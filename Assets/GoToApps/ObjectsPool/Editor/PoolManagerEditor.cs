@@ -12,32 +12,33 @@ namespace GoToApps.ObjectsPool.Editor
         private PoolManager _model;
 
         private SerializedProperty _poolParentTransform;
-        private SerializedProperty _poolPrefab;
         private SerializedProperty _selfInitialize;
-        private SerializedProperty _initializePoolSize;
         private SerializedProperty _initializeIn;
         private SerializedProperty _initializeMode;
+        private SerializedProperty _poolPrefab;
+        private SerializedProperty _prefabs;
+        private SerializedProperty _initializePoolSize;
         private SerializedProperty _iterationsCount;
         private SerializedProperty _createAllObjects;
-        private SerializedProperty _prefabs;
         private SerializedProperty _showDebugLogs;
-        private SerializedProperty _showPoolOperationLogs;
         private SerializedProperty _showPoolInitializerLogs;
+        private SerializedProperty _showPoolOperationLogs;
+        
         
         private void OnEnable()
         {
             _model = (PoolManager) target;
 
             _poolParentTransform = serializedObject.FindProperty("_poolParentTransform");
-            _poolPrefab = serializedObject.FindProperty("_poolPrefab");
             _selfInitialize = serializedObject.FindProperty("_selfInitialize");
-            _initializePoolSize = serializedObject.FindProperty("_initializePoolSize");
             _initializeIn = serializedObject.FindProperty("_initializeIn");
-            _showDebugLogs = serializedObject.FindProperty("_showDebugLogs");
             _initializeMode = serializedObject.FindProperty("_initializeMode");
+            _poolPrefab = serializedObject.FindProperty("_poolPrefab");
+            _prefabs = serializedObject.FindProperty("_prefabs");
+            _initializePoolSize = serializedObject.FindProperty("_initializePoolSize");
             _iterationsCount = serializedObject.FindProperty("_iterationsCount");
             _createAllObjects = serializedObject.FindProperty("_createAllObjects");
-            _prefabs = serializedObject.FindProperty("_prefabs");
+            _showDebugLogs = serializedObject.FindProperty("_showDebugLogs");
             _showPoolOperationLogs = serializedObject.FindProperty("_showPoolOperationLogs");
             _showPoolInitializerLogs = serializedObject.FindProperty("_showPoolInitializerLogs");
         }
