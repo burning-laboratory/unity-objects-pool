@@ -951,7 +951,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1080293067}
   - component: {fileID: 1080293066}
-  - component: {fileID: 1080293068}
   m_Layer: 0
   m_Name: Pool Manager
   m_TagString: Untagged
@@ -972,11 +971,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolParentTransform: {fileID: 1080293067}
-  _poolPrefab: {fileID: 1928699419049301466, guid: e0eb078a9e6b424678b5bd79c40b1b11, type: 3}
-  _selfInitialize: 0
-  _initializePoolSize: 5
+  _dontDestroyOnLoad: 1
+  _poolManagerDataPlayerPrefsKey: Pool Manager
+  _selfInitialize: 1
   _initializeIn: 0
+  _initializeMode: 1
+  _poolPrefab: {fileID: 1928699419049301466, guid: e0eb078a9e6b424678b5bd79c40b1b11, type: 3}
+  _prefabs:
+  - {fileID: 1928699419049301466, guid: e0eb078a9e6b424678b5bd79c40b1b11, type: 3}
+  - {fileID: 7327514733907303707, guid: 6279232b251ed2c40a57b78a0cb5e7f3, type: 3}
+  - {fileID: 508034910016538512, guid: 73b4c5ae7b30477d7bf441609d9b4807, type: 3}
+  - {fileID: 2768146878049871515, guid: 942d5ddbb357464cea48084bced5d071, type: 3}
+  - {fileID: 1676047644945445893, guid: eb519db4fb08295a0bf4b13d6f9acfdb, type: 3}
+  - {fileID: 6419523115006516630, guid: 80df39f4b20be5690b376fcdea288bc8, type: 3}
+  _initializePoolSize: 5
+  _iterationsCount: 3
+  _createAllObjects: 1
   _showDebugLogs: 1
+  _showPoolInitializerLogs: 1
+  _showPoolOperationLogs: 1
+  _showBackgroundControlLogs: 1
 --- !u!4 &1080293067
 Transform:
   m_ObjectHideFlags: 0
@@ -991,27 +1005,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1080293068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080293065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70017968b6c3454380c4e57ee1098b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pool: {fileID: 1080293066}
-  _prefabs:
-  - {fileID: 1928699419049301466, guid: e0eb078a9e6b424678b5bd79c40b1b11, type: 3}
-  - {fileID: 7327514733907303707, guid: 6279232b251ed2c40a57b78a0cb5e7f3, type: 3}
-  - {fileID: 508034910016538512, guid: 73b4c5ae7b30477d7bf441609d9b4807, type: 3}
-  - {fileID: 2768146878049871515, guid: 942d5ddbb357464cea48084bced5d071, type: 3}
-  - {fileID: 1676047644945445893, guid: eb519db4fb08295a0bf4b13d6f9acfdb, type: 3}
-  - {fileID: 6419523115006516630, guid: 80df39f4b20be5690b376fcdea288bc8, type: 3}
-  _objectsCountForInitialize: 10
 --- !u!1 &1153946076
 GameObject:
   m_ObjectHideFlags: 0
