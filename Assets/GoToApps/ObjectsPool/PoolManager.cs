@@ -17,6 +17,12 @@ namespace GoToApps.ObjectsPool
         [Tooltip("Parent game object transform for game objects in pool.")]
         [SerializeField] private Transform _poolParentTransform;
 
+        [Tooltip("The flag responsible for marking the `DontDestroyOnLoad` object. When the scene is restarted, the duplicate object will be deleted.")]
+        [SerializeField] private bool _dontDestroyOnLoad;
+
+        [Tooltip("The key by which the pool manager will save data. We recommend using unique keys for each instance of the pool manager.")]
+        [SerializeField] private string _poolManagerDataPlayerPrefsKey;
+        
         [Tooltip("Automatic pool initialize.")]
         [SerializeField] private bool _selfInitialize;
         
@@ -24,7 +30,6 @@ namespace GoToApps.ObjectsPool
         [SerializeField] private InitializeIn _initializeIn;
         
         [Tooltip("Type of self pool initialization.")]
-        //TODO: Add property to pool manager documentation.
         [SerializeField] private SelfInitializeMode _initializeMode;
 
         [Tooltip("Game object prefab.")]
@@ -51,10 +56,20 @@ namespace GoToApps.ObjectsPool
         [Tooltip("Displays operations with pool objects in the logs.")]
         [SerializeField] private bool _showPoolOperationLogs;
 
+        [Tooltip("Responsible for outputting logs of the background instance monitoring module. `ContDestroyOnLoad`.")] 
+        [SerializeField] private bool _showBackgroundControlLogs;
+
         private readonly Queue<PoolableItem> _pool = new Queue<PoolableItem>();
         
         private bool _initialized;
+        private int _instanceId;
         
+        /// <summary>
+        /// Mix array.
+        /// </summary>
+        /// <param name="data">Array to mix.</param>
+        /// <typeparam name="T">Array items type.</typeparam>
+        /// <returns>Mixed array.</returns>
         private List<T> MixArray<T>(List<T> data)
         {
             Random random = new Random();
@@ -155,6 +170,26 @@ namespace GoToApps.ObjectsPool
 
         private void Awake()
         {
+            if (_dontDestroyOnLoad)
+            {
+                if (PlayerPrefs.HasKey(_poolManagerDataPlayerPrefsKey))
+                {
+                    if (_showBackgroundControlLogs) UnityConsole.PrintLog("PoolManager", "Awake", "Duplicated pool destroyed.", gameObject);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    _instanceId = GetInstanceID();
+                    PlayerPrefs.SetInt(_poolManagerDataPlayerPrefsKey, _instanceId);
+                    DontDestroyOnLoad(gameObject);
+
+                    if (_showBackgroundControlLogs)
+                    {
+                        GameObject gm = gameObject;
+                        UnityConsole.PrintLog("PoolManager", "Awake", $"{gm.name} mark as dont destroy on load.", gm);
+                    }
+                }
+            }
             if (_poolParentTransform == null) _poolParentTransform = transform;
             if (_selfInitialize && _initializeIn == InitializeIn.Awake) InitializePool();
         }
@@ -163,7 +198,29 @@ namespace GoToApps.ObjectsPool
         {
             if (_selfInitialize && _initializeIn == InitializeIn.Start) InitializePool();
         }
-        
+
+        private void OnApplicationQuit()
+        {
+#if UNITY_STANDALONE || UNITY_EDITOR
+            if (_dontDestroyOnLoad)
+            {
+                if(PlayerPrefs.HasKey(_poolManagerDataPlayerPrefsKey)) PlayerPrefs.DeleteKey(_poolManagerDataPlayerPrefsKey);
+                if (_showBackgroundControlLogs) UnityConsole.PrintLog("PoolManager", "OnApplicationQuit", "Pool metadata deleted.", gameObject);
+            }
+#endif
+        }
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+#if UNITY_ANDROID || UNITY_IOS
+            if (_dontDestroyOnLoad)
+            {
+                if(PlayerPrefs.HasKey(_poolManagerDataPlayerPrefsKey)) PlayerPrefs.DeleteKey(_poolManagerDataPlayerPrefsKey);
+                if (_showBackgroundControlLogs) UnityConsole.PrintLog("PoolManager", "OnApplicationPause", "Pool metadata deleted.", gameObject);
+            }
+#endif
+        }
+
         /// <summary>
         /// Default pool manager constructor.
         /// </summary>

@@ -252,17 +252,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolParentTransform: {fileID: 549254364}
+  _dontDestroyOnLoad: 1
+  _poolManagerDataPlayerPrefsKey: SomeKey
   _selfInitialize: 1
   _initializeIn: 0
-  _initializeType: 0
+  _initializeMode: 0
+  _poolPrefab: {fileID: 9217265008310228257, guid: 73db10e894f8249af9390cd5407883fb, type: 3}
+  _prefabs: []
+  _initializePoolSize: 25
   _iterationsCount: 0
   _createAllObjects: 0
-  _prefabs: []
-  _poolPrefab: {fileID: 9217265008310228257, guid: 73db10e894f8249af9390cd5407883fb, type: 3}
-  _initializePoolSize: 25
   _showDebugLogs: 1
-  _showPoolOperationLogs: 0
   _showPoolInitializerLogs: 1
+  _showPoolOperationLogs: 0
+  _showBackgroundControlLogs: 1
 --- !u!4 &549254364
 Transform:
   m_ObjectHideFlags: 0
@@ -307,11 +310,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolParentTransform: {fileID: 588312003}
+  _dontDestroyOnLoad: 1
+  _poolManagerDataPlayerPrefsKey: Blocks Pool Key
   _selfInitialize: 1
   _initializeIn: 0
-  _initializeType: 1
-  _iterationsCount: 3
-  _createAllObjects: 1
+  _initializeMode: 1
+  _poolPrefab: {fileID: 0}
   _prefabs:
   - {fileID: 3496349535214724036, guid: 8c6d11a3914690f358e20104b9ee6e4a, type: 3}
   - {fileID: 1515991413538928675, guid: ec072b6be6ea06969846480c1074559f, type: 3}
@@ -421,11 +425,13 @@ MonoBehaviour:
   - {fileID: 7835310541548035137, guid: 41198aacc26827e5a960e600a815b87d, type: 3}
   - {fileID: 7960831265834217387, guid: 0da0b6d71f16416af9024f996e7ba4ea, type: 3}
   - {fileID: 4848328115125411501, guid: f0d618744660570e6af501d93f336185, type: 3}
-  _poolPrefab: {fileID: 0}
   _initializePoolSize: 0
+  _iterationsCount: 3
+  _createAllObjects: 1
   _showDebugLogs: 1
-  _showPoolOperationLogs: 0
   _showPoolInitializerLogs: 1
+  _showPoolOperationLogs: 0
+  _showBackgroundControlLogs: 1
 --- !u!4 &588312003
 Transform:
   m_ObjectHideFlags: 0

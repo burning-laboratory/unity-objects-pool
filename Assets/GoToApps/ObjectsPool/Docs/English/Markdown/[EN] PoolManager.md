@@ -6,25 +6,31 @@
 
 > All settings of the PoolManager component.
 
-- **`Pool parent transform (Transform)`** - The parent object of the pool objects.
+- **`Pool Parent Transform (Transform)`** - The parent object of the pool objects.
 
 
-- **`Self initialize (bool)`** - The flag responsible for automatic initialization of the pool.
+- **`Dont Destroy On Load (bool)`** - The flag responsible for marking the `DontDestroyOnLoad` object. When the scene is restarted, the duplicate object will be deleted.
 
 
-- **`Initialize in (InitializeIn)`** - Selecting the method in which initialization will take place. See the documentation for the `InitializeIn` type.
+- **`Pool Manager Data Player Prefs Key (string)`** - The key by which the pool manager will save data. We recommend using unique keys for each instance of the pool manager.
+
+
+- **`Self Initialize (bool)`** - The flag responsible for automatic initialization of the pool.
+
+
+- **`Initialize In (InitializeIn)`** - Selecting the method in which initialization will take place. See the documentation for the `InitializeIn` type.
 
 
 - **`Initialize Mode (SelfInitializeMode)`** - Selecting the pool initialization mode. See the documentation for the `SelfInitializeMode` type.
 
 
-- **`Pool prefab (GameObject)`** - The prefab of the object in the pool, used for initialization.
+- **`Pool Prefab (GameObject)`** - The prefab of the object in the pool, used for initialization.
 
 
 - **`Prefabs (List<GameObject>)`** - A list of prefabs for initializing the pool.
 
 
-- **`Initialize pool size (int)`** - The size of the pool during initialization. The number of objects to be created during initialization.
+- **`Initialize Pool Size (int)`** - The size of the pool during initialization. The number of objects to be created during initialization.
 
 
 - **`Iterations Count (int)`** - Number of passes through the list of prefabs.
@@ -40,6 +46,10 @@
 
 
 - **`Show Pool Operation Logs (bool)`** - Responsible for logging operations with checkers objects. A streamlined pool was received and called.
+
+
+- **`Show Background Control Logs (bool)`** - Responsible for outputting logs of the background instance monitoring module. `ContDestroyOnLoad`.
+
 
 ## Methods:
 

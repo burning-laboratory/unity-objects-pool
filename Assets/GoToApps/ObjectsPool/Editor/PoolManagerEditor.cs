@@ -12,6 +12,8 @@ namespace GoToApps.ObjectsPool.Editor
         private PoolManager _model;
 
         private SerializedProperty _poolParentTransform;
+        private SerializedProperty _dontDestroyOnLoad;
+        private SerializedProperty _poolManagerDataPlayerPrefsKey;
         private SerializedProperty _selfInitialize;
         private SerializedProperty _initializeIn;
         private SerializedProperty _initializeMode;
@@ -23,6 +25,7 @@ namespace GoToApps.ObjectsPool.Editor
         private SerializedProperty _showDebugLogs;
         private SerializedProperty _showPoolInitializerLogs;
         private SerializedProperty _showPoolOperationLogs;
+        private SerializedProperty _showBackgroundControlLogs;
         
         
         private void OnEnable()
@@ -30,6 +33,8 @@ namespace GoToApps.ObjectsPool.Editor
             _model = (PoolManager) target;
 
             _poolParentTransform = serializedObject.FindProperty("_poolParentTransform");
+            _dontDestroyOnLoad = serializedObject.FindProperty("_dontDestroyOnLoad");
+            _poolManagerDataPlayerPrefsKey = serializedObject.FindProperty("_poolManagerDataPlayerPrefsKey");
             _selfInitialize = serializedObject.FindProperty("_selfInitialize");
             _initializeIn = serializedObject.FindProperty("_initializeIn");
             _initializeMode = serializedObject.FindProperty("_initializeMode");
@@ -41,12 +46,18 @@ namespace GoToApps.ObjectsPool.Editor
             _showDebugLogs = serializedObject.FindProperty("_showDebugLogs");
             _showPoolOperationLogs = serializedObject.FindProperty("_showPoolOperationLogs");
             _showPoolInitializerLogs = serializedObject.FindProperty("_showPoolInitializerLogs");
+            _showBackgroundControlLogs = serializedObject.FindProperty("_showBackgroundControlLogs");
         }
 
         private void DrawFields()
         {
             EditorGUILayout.LabelField("Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_poolParentTransform);
+
+            EditorGUILayout.PropertyField(_dontDestroyOnLoad);
+            bool dontDestroyOnLoad = _dontDestroyOnLoad.boolValue;
+            if (dontDestroyOnLoad) EditorGUILayout.PropertyField(_poolManagerDataPlayerPrefsKey);
+            
             
             EditorGUILayout.PropertyField(_selfInitialize);
             bool selfInitialize = _selfInitialize.boolValue;
@@ -81,6 +92,7 @@ namespace GoToApps.ObjectsPool.Editor
             {
                 EditorGUILayout.PropertyField(_showPoolInitializerLogs);
                 EditorGUILayout.PropertyField(_showPoolOperationLogs);
+                EditorGUILayout.PropertyField(_showBackgroundControlLogs);
             }
         }
 
