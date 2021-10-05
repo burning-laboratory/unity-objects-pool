@@ -15,7 +15,7 @@ namespace GoToApps.ObjectsPool.Utils
         /// <param name="message">Message</param>
         public static void PrintLog(string className, string methodName, string message)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !UNITY_INCLUDE_TESTS
             Debug.Log($"{{<b><color=white>GoTo-</color><color=lime>Apps</color></b>}} => [{className}] - (<color=yellow>{methodName}</color>) -> {message}");
 #else
             Debug.Log($"{{GoTo-Apps}} => [{className}] - ({methodName}) -> {message}");
@@ -31,7 +31,7 @@ namespace GoToApps.ObjectsPool.Utils
         /// <param name="context">GameObject context.</param>
         public static void PrintLog(string className, string methodName, string message, GameObject context)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !UNITY_INCLUDE_TESTS
             Debug.Log($"{{<b><color=white>GoTo-</color><color=lime>Apps</color></b>}} => [{className}] - (<color=yellow>{methodName}</color>) -> {message}", context);
 #else
             Debug.Log($"{{GoTo-Apps}} => [{className}] - ({methodName}) -> {message}");
@@ -47,7 +47,7 @@ namespace GoToApps.ObjectsPool.Utils
         /// <param name="message">Message to console</param>
         public static void PrintLog(string moduleName,string className, string methodName, string message)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !UNITY_INCLUDE_TESTS
             Debug.Log($"{{<b><color=white>{moduleName}</color></b>}} => [{className}] - (<color=yellow>{methodName}</color>) -> {message}");
 #else
             Debug.Log($"{{GoTo-Apps}} => [{className}] - ({methodName}) -> {message}");
@@ -64,7 +64,7 @@ namespace GoToApps.ObjectsPool.Utils
         /// <param name="context">Game object context</param>
         public static void PrintLog(string moduleName,string className, string methodName, string message, GameObject context)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !UNITY_INCLUDE_TESTS
             Debug.Log($"{{<b><color=white>{moduleName}</color></b>}} => [{className}] - (<color=yellow>{methodName}</color>) -> {message}", context);
 #else
             Debug.Log($"{{GoTo-Apps}} => [{className}] - ({methodName}) -> {message}");

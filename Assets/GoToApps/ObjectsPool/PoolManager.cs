@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GoToApps.ObjectsPool.Exceptions;
 using UnityEngine;
 using GoToApps.ObjectsPool.Types;
@@ -60,6 +61,11 @@ namespace GoToApps.ObjectsPool
         [SerializeField] private bool _showBackgroundControlLogs;
 
         private readonly Queue<PoolableItem> _pool = new Queue<PoolableItem>();
+        
+        /// <summary>
+        /// Return items count in pool.
+        /// </summary>
+        public int ItemsCountInPool => _pool.Count;
         
         private bool _initialized;
         private int _instanceId;
@@ -369,7 +375,8 @@ namespace GoToApps.ObjectsPool
             if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
-                UnityConsole.PrintLog("PoolManager", "GetItemsFromPool", $"{count} {_poolPrefab.name} returned from {context.name}", context);
+                PoolableItem item = items.First();
+                UnityConsole.PrintLog("PoolManager", "GetItemsFromPool", $"{count} {item.name}s returned from {context.name}", context);
             }
             return items;
         }
