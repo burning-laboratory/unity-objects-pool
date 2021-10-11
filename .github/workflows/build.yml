@@ -36,7 +36,7 @@ jobs:
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
           
-      - name: Tests for ${{ matrix.targetPlatform }} (${{ matrix.testMode }})
+      - name: Tests for ${{ matrix.targetPlatform }} ${{ matrix.testMode }}
         uses: game-ci/unity-test-runner@v2
         id: tests
         env:
