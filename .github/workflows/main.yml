@@ -22,26 +22,29 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Cache
-        uses: actions/cache@v2.1.6
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        uses: actions/cache@v2.1.6
+
           
       - name: Unity - Activate
-        uses: game-ci/unity-activate@v1.3
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        uses: game-ci/unity-activate@v1.3
       
       - name: Unity - Test runner
-        uses: game-ci/unity-test-runner@v2.0-alpha-6
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: PlayMode
+        uses: game-ci/unity-test-runner@v2.0-alpha-6
       
       - name: Unity - Builder
         uses: game-ci/unity-builder@v2.0-alpha-13
-      
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          
       - uses: actions/upload-artifact@v2
         if: always()
         with:
