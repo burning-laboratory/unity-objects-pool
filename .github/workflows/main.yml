@@ -1,4 +1,4 @@
-name: Test project
+name: build
 
 on: [push, pull_request]
 
@@ -10,7 +10,6 @@ jobs:
     steps:
       - uses: game-ci/unity-test-runner@v2
         with:
-          projectPath: path/to/your/project
           githubToken: ${{ secrets.GITHUB_TOKEN }}
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
