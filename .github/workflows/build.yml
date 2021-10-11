@@ -35,16 +35,5 @@ jobs:
           path: Library/
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
-          
-      - name: Tests for ${{ matrix.targetPlatform }} ${{ matrix.testMode }}
-        uses: game-ci/unity-test-runner@v2
-        id: tests
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          projectPath: ${{ matrix.projectPath }}
-          testMode: ${{ matrix.testMode }}
-          artifactsPath: ${{ matrix.testMode }}-artifacts
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: ${{ matrix.testMode }} Test Results
+        
 
