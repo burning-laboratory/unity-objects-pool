@@ -1,56 +1,37 @@
-# This is a basic workflow to help you get started with Actions
+name: Test project
 
-name: Build
+on: [push, pull_request]
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
+  testAllModes:
+    name: Test in ${{ matrix.testMode }}
     runs-on: ubuntu-latest
-    
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode:
+          - playmode
+          - editmode
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Cache
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        uses: actions/cache@v2.1.6
-
-          
-      - name: Unity - Activate
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        uses: game-ci/unity-activate@v1.3
-      
-      - name: Unity - Test runner
+        with:
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: ${{ matrix.projectPath }}/Library
+          restore-keys: |
+            Library-
+      - uses: game-ci/unity-test-runner@v2
+        id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          testMode: ${{ matrix.testMode }}
+          artifactsPath: ${{ matrix.testMode }}-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          testMode: PlayMode
-        uses: game-ci/unity-test-runner@v2.0-alpha-6
-      
-      - name: Unity - Builder
-        uses: game-ci/unity-builder@v2.0-alpha-13
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          
+          checkName: ${{ matrix.testMode }} Test Results
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Test results
-          path: artifacts
-        
-
-
-
+          name: Test results for ${{ matrix.testMode }}
+          path: ${{ steps.tests.outputs.artifactsPath }}
