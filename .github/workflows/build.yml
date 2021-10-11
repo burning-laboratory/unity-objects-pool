@@ -21,11 +21,7 @@ jobs:
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
           - Android # Build an Android .apk standalone app.
           
-    steps:
-      - name: Return license
-        uses: game-ci/unity-return-license@v1
-        if: always()
-      
+    steps:      
       - name: Request manual activation file
         id: getManualLicenseFile
         uses: game-ci/unity-request-activation-file@v2
@@ -46,22 +42,31 @@ jobs:
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
           
-      - name: Test for ${{ matrix.targetPlatform }} platform.
+          # Test
+      - name: Run tests
         uses: game-ci/unity-test-runner@v2
-        id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          projectPath: ${{ matrix.projectPath }}
-          testMode: ${{ matrix.testMode }}
-          artifactsPath: ${{ matrix.testMode }}-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: ${{ matrix.testMode }} Test Results
-          
-      - uses: actions/upload-artifact@v2
-        if: always()
+
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          name: Test results for ${{ matrix.testMode }}
-          path: ${{ steps.tests.outputs.artifactsPath }}
+          targetPlatform: WebGL
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
+          
+      # Return a Unity license
+      - name: Return license
+        uses: game-ci/unity-return-license@v1
+        if: always()
         
 
