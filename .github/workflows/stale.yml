@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - unity-objects-pool
+          - https://github.com/GoTo-Apps/unity-objects-pool/
         testMode:
           - playmode
           - editmode
