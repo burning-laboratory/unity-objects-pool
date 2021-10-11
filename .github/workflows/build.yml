@@ -22,6 +22,10 @@ jobs:
           - Android # Build an Android .apk standalone app.
           
     steps:
+      - name: Return license
+        uses: game-ci/unity-return-license@v1
+        if: always()
+      
       - name: Request manual activation file
         id: getManualLicenseFile
         uses: game-ci/unity-request-activation-file@v2
