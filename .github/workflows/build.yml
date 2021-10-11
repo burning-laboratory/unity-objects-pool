@@ -1,6 +1,8 @@
 name: Build
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
   
@@ -9,13 +11,11 @@ jobs:
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         projectPath:
           - ./
         testMode:
           - playmode
-          - editmode
         targetPlatform:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
