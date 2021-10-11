@@ -23,9 +23,13 @@ jobs:
       
       - name: Cache
         uses: actions/cache@v2.1.6
-      
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          
       - name: Unity - Activate
         uses: game-ci/unity-activate@v1.3
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
       
       - name: Unity - Test runner
         uses: game-ci/unity-test-runner@v2.0-alpha-6
