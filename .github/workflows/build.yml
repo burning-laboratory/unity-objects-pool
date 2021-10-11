@@ -22,6 +22,16 @@ jobs:
           - Android # Build an Android .apk standalone app.
           
     steps:
+      - name: Request manual activation file
+        id: getManualLicenseFile
+        uses: game-ci/unity-request-activation-file@v2
+
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.getManualLicenseFile.outputs.filePath }}
+          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+    
       - name: Checkout
         uses: actions/checkout@v2.3.4
         
