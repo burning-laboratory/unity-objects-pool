@@ -5,7 +5,7 @@ using GoToApps.ObjectsPool.Exceptions;
 using UnityEngine;
 using GoToApps.ObjectsPool.Types;
 using GoToApps.ObjectsPool.Utils;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 namespace GoToApps.ObjectsPool
 {
@@ -62,105 +62,93 @@ namespace GoToApps.ObjectsPool
 
         private readonly Queue<PoolableItem> _pool = new Queue<PoolableItem>();
         
+        private int _lastInitializedItemFromTemplateIndex = 0;
+        private bool _initialized;
+        private int _instanceId;
+        
         /// <summary>
         /// Return items count in pool.
         /// </summary>
         public int ItemsCountInPool => _pool.Count;
         
-        private bool _initialized;
-        private int _instanceId;
+        /// <summary>
+        /// A calculated property that returns a prefab for creating a new pool object, taking into account all settings.
+        /// </summary>
+        public GameObject PoolPrefab
+        {
+            get
+            {
+                switch (_initializeMode)
+                {
+                    case SelfInitializeMode.SinglePrefab: return _poolPrefab;
+                    
+                    case SelfInitializeMode.MultiplePrefabs:
+                        if (_createAllObjects)
+                        {
+                            GameObject nextPositionInQueuePrefab = _prefabs[_lastInitializedItemFromTemplateIndex];
+                            _lastInitializedItemFromTemplateIndex++;
+                            if (_lastInitializedItemFromTemplateIndex == _prefabs.Count - 1)
+                            {
+                                _lastInitializedItemFromTemplateIndex = 0;
+                            }
+                            return nextPositionInQueuePrefab;
+                        }
+                        else
+                        {
+                            int i = Random.Range(0, _prefabs.Count);
+                            return _prefabs[i];
+                        }
+
+                    case SelfInitializeMode.InitializeTemplate:
+                        GameObject prefabForInitializeTemplate = _prefabs[_lastInitializedItemFromTemplateIndex];
+                        _lastInitializedItemFromTemplateIndex++;
+                        if (_lastInitializedItemFromTemplateIndex == _prefabs.Count - 1)
+                        {
+                            _lastInitializedItemFromTemplateIndex = 0;
+                        }
+                        return prefabForInitializeTemplate;
+                }
+                return _poolPrefab;
+            }  
+        }
         
         /// <summary>
-        /// Mix array.
+        /// The number of objects to be created during initialization. Calculated based on the settings.
         /// </summary>
-        /// <param name="data">Array to mix.</param>
-        /// <typeparam name="T">Array items type.</typeparam>
-        /// <returns>Mixed array.</returns>
-        private List<T> MixArray<T>(List<T> data)
+        private int InitializeIterationsCount
         {
-            Random random = new Random();
-            for (int i = data.Count - 1; i >= 1; i--)
+            get
             {
-                int j = random.Next(i + 1);
-                (data[j], data[i]) = (data[i], data[j]);
+                switch (_initializeMode)
+                {
+                    case SelfInitializeMode.SinglePrefab: return _initializePoolSize;
+                    case SelfInitializeMode.MultiplePrefabs:
+                        if (_createAllObjects) return _prefabs.Count * _iterationsCount;
+                        else return _initializePoolSize;
+                    case SelfInitializeMode.InitializeTemplate: return _iterationsCount * _prefabs.Count;
+                }
+
+                return 0;
             }
-
-            return data;
         }
-
-        /// <summary>
-        /// Create poolable item and link to this pool.
-        /// </summary>
-        /// <returns>Created poolable item</returns>
-        private PoolableItem CreatePoolableItem(GameObject prefab, Transform parent)
-        {
-            GameObject initializedItem = Instantiate(prefab, parent);
-            if (initializedItem.TryGetComponent(out PoolableItem poolableItem))
-            {
-                poolableItem.SetPool(this);
-                initializedItem.SetActive(false);
-                return poolableItem;
-            }
-            throw new ObjectsPoolException("PoolableItem component not found on instantiated game object.");
-        }
-
+        
         /// <summary>
         /// Initialize pool.
         /// </summary>
         private void InitializePool()
         {
             DateTime startDt = DateTime.Now;
-            switch (_initializeMode)
-            {
-                case SelfInitializeMode.SinglePrefab:
-                    for (int i = 0; i < _initializePoolSize; i++)
-                    {
-                        PoolableItem poolableItem = CreatePoolableItem(_poolPrefab, _poolParentTransform);
-                        _pool.Enqueue(poolableItem);
-                    }
-                    break;
-                
-                case SelfInitializeMode.MultiplePrefabs:
-                    List<PoolableItem> poolableItems = new List<PoolableItem>();
-                    if (_createAllObjects)
-                    {
-                        for (int i = 0; i < _iterationsCount; i++)
-                        {
-                            foreach (GameObject prefab in _prefabs)
-                            {
-                                PoolableItem poolableItem = CreatePoolableItem(prefab, _poolParentTransform);
-                                poolableItems.Add(poolableItem);
-                            }
-                        }
 
-                        poolableItems = MixArray(poolableItems);
-                        foreach (PoolableItem poolableItem in poolableItems)
-                        {
-                            _pool.Enqueue(poolableItem);
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < _initializePoolSize; i++)
-                        {
-                            int index = UnityEngine.Random.Range(0, _prefabs.Count);
-                            GameObject prefab = _prefabs[index];
-                            PoolableItem poolableItem = CreatePoolableItem(prefab, _poolParentTransform);
-                            _pool.Enqueue(poolableItem);
-                        }
-                    }
-                    break;
-                
-                case SelfInitializeMode.InitializeTemplate:
-                    for (int i = 0; i < _iterationsCount; i++)
-                    {
-                        foreach (GameObject prefab in _prefabs)
-                        {
-                            PoolableItem poolableItem = CreatePoolableItem(prefab, _poolParentTransform);
-                            _pool.Enqueue(poolableItem);
-                        }
-                    }
-                    break;
+            List<PoolableItem> poolableItems = new List<PoolableItem>();
+            for (int i = 0; i < InitializeIterationsCount; i++)
+            {
+                PoolableItem poolableItem = PoolInitializer.CreateGameObject(PoolPrefab, _poolParentTransform, this);
+                poolableItems.Add(poolableItem);
+            }
+            poolableItems = ArrayUtils.MixArray(poolableItems);
+            foreach (PoolableItem poolableItem in poolableItems)
+            {
+                _pool.Enqueue(poolableItem);
             }
             
             if (_showDebugLogs && _showPoolInitializerLogs)
@@ -173,7 +161,17 @@ namespace GoToApps.ObjectsPool
             }   
             _initialized = true;
         }
-
+        
+        /// <summary>
+        /// Instantiate new pool prefab and add to pool.
+        /// </summary>
+        /// <returns>Instantiated and added to pool prefab.</returns>
+        private void CreateNewPoolableItem()
+        {
+            PoolableItem item = PoolInitializer.CreateGameObject(PoolPrefab, _poolParentTransform, this);
+            _pool.Enqueue(item);
+        }
+        
         private void Awake()
         {
             if (_dontDestroyOnLoad)
@@ -323,12 +321,8 @@ namespace GoToApps.ObjectsPool
         /// <returns>Game object from pool.</returns>
         public PoolableItem GetItemFromPool()
         {
-            if (_pool.Count == 0)
-            {
-                // TODO: Add auto oversize.
-                throw new ObjectsPoolException("There are not enough objects in the pool.");
-            }
-            
+            if (_pool.Count == 0) CreateNewPoolableItem();
+
             PoolableItem poolableItemFromPool = _pool.Dequeue();
             GameObject item = poolableItemFromPool.gameObject;
             item.gameObject.SetActive(true);
@@ -358,16 +352,10 @@ namespace GoToApps.ObjectsPool
         /// <returns>Objects from pool.</returns>
         public List<PoolableItem> GetItemsFromPool(int count)
         {
-            if (_pool.Count < count)
-            {
-                // TODO: Add auto oversize.
-                throw new ObjectsPoolException("There are not enough objects in the pool.");
-            }
-            
             List<PoolableItem> items = new List<PoolableItem>();
             for (int i = 0; i < count; i++)
             {
-                PoolableItem item = _pool.Dequeue();
+                PoolableItem item = GetItemFromPool();
                 item.gameObject.SetActive(true);
                 items.Add(item);
             }
