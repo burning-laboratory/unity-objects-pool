@@ -6,7 +6,7 @@ namespace GoToApps.ObjectsPool.Utils
     /// <summary>
     /// Initialize pool utils.
     /// </summary>
-    public class PoolInitializer
+    public static class PoolInitializer
     {
         /// <summary>
         /// Create poolable game object.
