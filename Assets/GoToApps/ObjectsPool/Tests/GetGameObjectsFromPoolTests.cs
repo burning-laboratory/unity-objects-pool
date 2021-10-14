@@ -4,18 +4,32 @@ using UnityEngine;
 
 namespace GoToApps.ObjectsPool.Tests
 {
+    /// <summary>
+    /// Tests that verify the receipt of game objects from the pool.
+    /// </summary>
     public class GetGameObjectsFromPoolTests
     {
+        /// <summary>
+        /// Create a some game object contains a PoolableItem script.
+        /// </summary>
+        /// <returns>Instantiated game object.</returns>
         private GameObject CreateGameObjectExtendedFromPoolableItem()
         {
             return new GameObject("Some Game Object").AddComponent<SomePoolableItem>().gameObject;
         }
         
+        /// <summary>
+        /// Create default Pool Manager instance.
+        /// </summary>
+        /// <returns>Instantiated Pool Manager.</returns>
         private PoolManager CreatePoolManagerInstance()
         {
             return new GameObject("Objects Pool").AddComponent<PoolManager>();
         }
         
+        /// <summary>
+        /// The test checks the possibility of obtaining one game object from a filled game pool.
+        /// </summary>
         [Test]
         public void GetSingleGameObjectFromPoolTest()
         {
@@ -38,6 +52,9 @@ namespace GoToApps.ObjectsPool.Tests
             Object.Destroy(gameObject);
         }
         
+        /// <summary>
+        /// Test checks the possibility of obtaining a set of game objects from a filled pool.
+        /// </summary>
         [Test]
         public void GetMultipleGameObjectsFromPoolTest()
         {
