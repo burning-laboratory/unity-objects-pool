@@ -62,7 +62,7 @@ namespace GoToApps.ObjectsPool
 
         private readonly Queue<PoolableItem> _pool = new Queue<PoolableItem>();
         
-        private int _lastInitializedItemFromTemplateIndex = 0;
+        private int _lastInitializedItemFromTemplateIndex;
         private bool _initialized;
         private int _instanceId;
         
@@ -87,7 +87,7 @@ namespace GoToApps.ObjectsPool
                         {
                             GameObject nextPositionInQueuePrefab = _prefabs[_lastInitializedItemFromTemplateIndex];
                             _lastInitializedItemFromTemplateIndex++;
-                            if (_lastInitializedItemFromTemplateIndex == _prefabs.Count - 1)
+                            if (_lastInitializedItemFromTemplateIndex == _prefabs.Count)
                             {
                                 _lastInitializedItemFromTemplateIndex = 0;
                             }
@@ -102,7 +102,7 @@ namespace GoToApps.ObjectsPool
                     case SelfInitializeMode.InitializeTemplate:
                         GameObject prefabForInitializeTemplate = _prefabs[_lastInitializedItemFromTemplateIndex];
                         _lastInitializedItemFromTemplateIndex++;
-                        if (_lastInitializedItemFromTemplateIndex == _prefabs.Count - 1)
+                        if (_lastInitializedItemFromTemplateIndex == _prefabs.Count)
                         {
                             _lastInitializedItemFromTemplateIndex = 0;
                         }
