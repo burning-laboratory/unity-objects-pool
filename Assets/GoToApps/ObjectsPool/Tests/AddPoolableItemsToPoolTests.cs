@@ -4,18 +4,32 @@ using UnityEngine;
 
 namespace GoToApps.ObjectsPool.Tests
 {
+    /// <summary>
+    /// You are checking the addition of instances of the PoolableItem component to the pool of game objects.
+    /// </summary>
     public class AddPoolableItemsToPoolTests
     {
+        /// <summary>
+        /// Create a poolable item instance linked to game object.
+        /// </summary>
+        /// <returns>Instantiated poolable item.</returns>
         private SomePoolableItem CreatePoolableItemExtendedFromPoolableItem()
         {
             return new GameObject("Some Game Object").AddComponent<SomePoolableItem>();
         }
         
+        /// <summary>
+        /// Create default Pool Manager instance.
+        /// </summary>
+        /// <returns>Instantiated Pool Manager.</returns>
         private PoolManager CreatePoolManagerInstance()
         {
             return new GameObject("Objects Pool").AddComponent<PoolManager>();
         }
-
+        
+        /// <summary>
+        /// The test checks the possibility of adding one instance of the PoolableItem class to the pool of game objects.
+        /// </summary>
         [Test]
         public void AddSinglePoolableItemToPoolTest()
         {
@@ -34,6 +48,9 @@ namespace GoToApps.ObjectsPool.Tests
             Object.Destroy(poolableItem);
         }
         
+        /// <summary>
+        /// The test checks the possibility of adding multiple instances of the PoolableItem class to the pool.
+        /// </summary>
         [Test]
         public void AddMultiplePoolableItemsToPool()
         {
