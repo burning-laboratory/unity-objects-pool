@@ -57,6 +57,7 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           targetPlatform: Android
+          allowDirtyBuild: true
 
       # Output
       - uses: actions/upload-artifact@v2
