@@ -74,7 +74,7 @@ namespace GoToApps.ObjectsPool
         /// <summary>
         /// A calculated property that returns a prefab for creating a new pool object, taking into account all settings.
         /// </summary>
-        public GameObject PoolPrefab
+        private GameObject PoolPrefab
         {
             get
             {
@@ -385,17 +385,41 @@ namespace GoToApps.ObjectsPool
             foreach (PoolableItem poolableItem in poolableItems) gameObjects.Add(poolableItem.gameObject);
             return gameObjects;
         }
-
+        
+        /// <summary>
+        /// Set custom pool prefab.
+        /// </summary>
+        /// <param name="prefab">Prefab to set.</param>
         public void SetPoolPrefab(GameObject prefab) => _poolPrefab = prefab;
 
+        /// <summary>
+        /// Set custom pool prefabs pattern.
+        /// </summary>
+        /// <param name="prefabs">Prefab list to set.</param>
         public void SetPoolPrefabs(List<GameObject> prefabs) => _prefabs = prefabs;
         
+        /// <summary>
+        /// Set initialize pool size objects count.
+        /// </summary>
+        /// <param name="poolSize">Objects count for initialize.</param>
         public void SetInitializePoolSize(int poolSize) => _initializePoolSize = poolSize;
-
+        
+        /// <summary>
+        /// Set self initialize mode.
+        /// </summary>
+        /// <param name="mode">Pool auto initialize mode.</param>
         public void SetSelfInitializeMode(SelfInitializeMode mode) => _initializeMode = mode;
 
+        /// <summary>
+        /// Set create all prefabs value.
+        /// </summary>
+        /// <param name="createAllPrefabs">Do create all prefabs.</param>
         public void SetCreateAllPrefabs(bool createAllPrefabs) => _createAllObjects = createAllPrefabs;
 
+        /// <summary>
+        /// Set iterations count for self initialize.
+        /// </summary>
+        /// <param name="iterationsCount">Iterations count.</param>
         public void SetIterationsCount(int iterationsCount) => _iterationsCount = iterationsCount;
     }
 }
