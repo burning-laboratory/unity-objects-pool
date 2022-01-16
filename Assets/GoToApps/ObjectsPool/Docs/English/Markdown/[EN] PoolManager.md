@@ -8,6 +8,7 @@
 
 - **`Pool Parent Transform (Transform)`** - The parent object of the pool objects.
 
+- **`Create Oversize Prefabs`** - Specifies whether to create additional game objects if the pool is empty at the time of the request for the game object.
 
 - **`Dont Destroy On Load (bool)`** - The flag responsible for marking the `DontDestroyOnLoad` object. When the scene is restarted, the duplicate object will be deleted.
 
