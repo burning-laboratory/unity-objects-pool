@@ -12,6 +12,7 @@ namespace GoToApps.ObjectsPool.Editor
         private PoolManager _model;
 
         private SerializedProperty _poolParentTransform;
+        private SerializedProperty _createOversizePrefabs;
         private SerializedProperty _dontDestroyOnLoad;
         private SerializedProperty _poolManagerDataPlayerPrefsKey;
         private SerializedProperty _selfInitialize;
@@ -33,6 +34,7 @@ namespace GoToApps.ObjectsPool.Editor
             _model = (PoolManager) target;
 
             _poolParentTransform = serializedObject.FindProperty("_poolParentTransform");
+            _createOversizePrefabs = serializedObject.FindProperty("_createOversizePrefabs");
             _dontDestroyOnLoad = serializedObject.FindProperty("_dontDestroyOnLoad");
             _poolManagerDataPlayerPrefsKey = serializedObject.FindProperty("_poolManagerDataPlayerPrefsKey");
             _selfInitialize = serializedObject.FindProperty("_selfInitialize");
@@ -54,6 +56,8 @@ namespace GoToApps.ObjectsPool.Editor
             EditorGUILayout.LabelField("Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_poolParentTransform);
 
+            EditorGUILayout.PropertyField(_createOversizePrefabs);
+            
             EditorGUILayout.PropertyField(_dontDestroyOnLoad);
             bool dontDestroyOnLoad = _dontDestroyOnLoad.boolValue;
             if (dontDestroyOnLoad) EditorGUILayout.PropertyField(_poolManagerDataPlayerPrefsKey);

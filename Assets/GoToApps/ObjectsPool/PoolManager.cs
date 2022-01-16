@@ -12,12 +12,15 @@ namespace GoToApps.ObjectsPool
     /// <summary>
     /// Objects pool manager.
     /// </summary>
-    [AddComponentMenu("GoTo-Apps/Objects Pool/Pool Manager")]
+    [AddComponentMenu("Burning-Lab/Objects Pool/Pool Manager")]
     public class PoolManager : MonoBehaviour
     {
         [Tooltip("Parent game object transform for game objects in pool.")]
         [SerializeField] private Transform _poolParentTransform;
 
+        [Tooltip("Specifies whether to create additional game objects if the pool is empty at the time of the request for the game object.")]
+        [SerializeField] private bool _createOversizePrefabs;
+        
         [Tooltip("The flag responsible for marking the `DontDestroyOnLoad` object. When the scene is restarted, the duplicate object will be deleted.")]
         [SerializeField] private bool _dontDestroyOnLoad;
 
@@ -315,7 +318,7 @@ namespace GoToApps.ObjectsPool
         /// <returns>Game object from pool.</returns>
         public PoolableItem GetItemFromPool()
         {
-            if (_pool.Count == 0)
+            if (_pool.Count == 0 && _createOversizePrefabs)
             {
                 PoolableItem newPoolableItem = PoolInitializer.CreateGameObject(PoolPrefab, _poolParentTransform, this);
                 _pool.Enqueue(newPoolableItem);
