@@ -10,32 +10,14 @@ namespace GoToApps.ObjectsPool.Tests
     public class GetPoolableItemsFromPoolTests
     {
         /// <summary>
-        /// Create base some poolable item instance.
-        /// </summary>
-        /// <returns>Instantiated poolable item.</returns>
-        private SomePoolableItem CreateSomePoolableItemExtendedFromPoolableItem()
-        {
-            return new GameObject("Some Game Object").AddComponent<SomePoolableItem>();
-        }
-        
-        /// <summary>
-        /// Create default Pool Manager instance.
-        /// </summary>
-        /// <returns>Instantiated Pool Manager.</returns>
-        private PoolManager CreatePoolManagerInstance()
-        {
-            return new GameObject("Objects Pool").AddComponent<PoolManager>();
-        }
-
-        /// <summary>
         /// The test checks the possibility of obtaining 1 instance of the PoolableItem class from a filled game pool.
         /// </summary>
         [Test]
-        public void GetSingleGameObjectFromPoolTest()
+        public void GetSinglePoolableItemFromPoolTest()
         {
             // Create
-            PoolManager pool = CreatePoolManagerInstance();
-            PoolableItem poolableItem = CreateSomePoolableItemExtendedFromPoolableItem();
+            PoolManager pool = TestUtils.CreatePoolManagerInstance();
+            PoolableItem poolableItem = TestUtils.CreatePoolableItemExtendedFromPoolableItem();
             pool.AddItemToPool(poolableItem);
             
             // Test Actions
@@ -56,14 +38,14 @@ namespace GoToApps.ObjectsPool.Tests
         /// The test checks whether it is possible to get multiple instances of the PoolableItem class from a full pool.
         /// </summary>
         [Test]
-        public void GetMultipleGameObjectsFromPoolTest()
+        public void GetMultiplePoolableItemsFromPoolTest()
         {
             // Create
-            PoolManager pool = CreatePoolManagerInstance();
+            PoolManager pool = TestUtils.CreatePoolManagerInstance();
             int itemsCount = Random.Range(10, 100);
             for (int i = 0; i < itemsCount; i++)
             {
-                PoolableItem poolableItem = CreateSomePoolableItemExtendedFromPoolableItem();
+                PoolableItem poolableItem = TestUtils.CreatePoolableItemExtendedFromPoolableItem();
                 pool.AddItemToPool(poolableItem);
             }
             
