@@ -10,32 +10,14 @@ namespace GoToApps.ObjectsPool.Tests
     public class AddGameObjectsToPoolTests
     {
         /// <summary>
-        /// Create a some game object contains a PoolableItem script.
-        /// </summary>
-        /// <returns>Instantiated game object.</returns>
-        private GameObject CreateGameObjectExtendedFromPoolableItem()
-        {
-            return new GameObject("Some Game Object").AddComponent<SomePoolableItem>().gameObject;
-        }
-        
-        /// <summary>
-        /// Create default Pool Manager instance.
-        /// </summary>
-        /// <returns>Instantiated Pool Manager.</returns>
-        private PoolManager CreatePoolManagerInstance()
-        {
-            return new GameObject("Objects Pool").AddComponent<PoolManager>();
-        }
-        
-        /// <summary>
         /// The test checks the possibility of adding one game object to the pool.
         /// </summary>
         [Test]
         public void AddSingleGameObjectToPoolTest()
         {
             // Create
-            PoolManager pool = CreatePoolManagerInstance();
-            GameObject gameObject = CreateGameObjectExtendedFromPoolableItem();
+            PoolManager pool = TestUtils.CreatePoolManagerInstance();
+            GameObject gameObject = TestUtils.CreateGameObjectExtendedFromPoolableItem();
             
             // Test Actions
             pool.AddObjectToPool(gameObject);
@@ -55,12 +37,12 @@ namespace GoToApps.ObjectsPool.Tests
         public void AddMultipleGameObjectsToPool()
         {
             // Create
-            PoolManager pool = CreatePoolManagerInstance();
+            PoolManager pool = TestUtils.CreatePoolManagerInstance();
             List<GameObject> gameObjects = new List<GameObject>();
             int objectsCount = Random.Range(10, 100);
             for (int i = 0; i < objectsCount; i++)
             {
-                GameObject gameObject = CreateGameObjectExtendedFromPoolableItem();
+                GameObject gameObject = TestUtils.CreateGameObjectExtendedFromPoolableItem();
                 gameObjects.Add(gameObject);
             }
             
