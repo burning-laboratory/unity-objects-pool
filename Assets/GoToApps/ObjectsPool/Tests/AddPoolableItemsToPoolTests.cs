@@ -10,32 +10,14 @@ namespace GoToApps.ObjectsPool.Tests
     public class AddPoolableItemsToPoolTests
     {
         /// <summary>
-        /// Create a poolable item instance linked to game object.
-        /// </summary>
-        /// <returns>Instantiated poolable item.</returns>
-        private SomePoolableItem CreatePoolableItemExtendedFromPoolableItem()
-        {
-            return new GameObject("Some Game Object").AddComponent<SomePoolableItem>();
-        }
-        
-        /// <summary>
-        /// Create default Pool Manager instance.
-        /// </summary>
-        /// <returns>Instantiated Pool Manager.</returns>
-        private PoolManager CreatePoolManagerInstance()
-        {
-            return new GameObject("Objects Pool").AddComponent<PoolManager>();
-        }
-        
-        /// <summary>
         /// The test checks the possibility of adding one instance of the PoolableItem class to the pool of game objects.
         /// </summary>
         [Test]
         public void AddSinglePoolableItemToPoolTest()
         {
             // Create
-            PoolManager pool = CreatePoolManagerInstance();
-            PoolableItem poolableItem = CreatePoolableItemExtendedFromPoolableItem();
+            PoolManager pool = TestUtils.CreatePoolManagerInstance();
+            PoolableItem poolableItem = TestUtils.CreatePoolableItemExtendedFromPoolableItem();
             
             // Test Actions
             pool.AddItemToPool(poolableItem);
@@ -55,12 +37,12 @@ namespace GoToApps.ObjectsPool.Tests
         public void AddMultiplePoolableItemsToPool()
         {
             // Create
-            PoolManager pool = CreatePoolManagerInstance();
+            PoolManager pool = TestUtils.CreatePoolManagerInstance();
             List<PoolableItem> poolableItems = new List<PoolableItem>();
             int objectsCount = Random.Range(10, 100);
             for (int i = 0; i < objectsCount; i++)
             {
-                PoolableItem poolableItem = CreatePoolableItemExtendedFromPoolableItem();
+                PoolableItem poolableItem = TestUtils.CreatePoolableItemExtendedFromPoolableItem();
                 poolableItems.Add(poolableItem);
             }
             
