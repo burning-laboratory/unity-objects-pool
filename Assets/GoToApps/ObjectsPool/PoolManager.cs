@@ -424,5 +424,11 @@ namespace GoToApps.ObjectsPool
         /// </summary>
         /// <param name="iterationsCount">Iterations count.</param>
         public void SetIterationsCount(int iterationsCount) => _iterationsCount = iterationsCount;
+        
+        /// <summary>
+        /// Set create oversize prefabs for automatic creating game objects if pool is empty.
+        /// </summary>
+        /// <param name="createOversizePrefabs"></param>
+        public void SetCreateOversizePrefabs(bool createOversizePrefabs) => _createOversizePrefabs = createOversizePrefabs;
     }
 }
