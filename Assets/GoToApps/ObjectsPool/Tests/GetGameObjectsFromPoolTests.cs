@@ -10,32 +10,14 @@ namespace GoToApps.ObjectsPool.Tests
     public class GetGameObjectsFromPoolTests
     {
         /// <summary>
-        /// Create a some game object contains a PoolableItem script.
-        /// </summary>
-        /// <returns>Instantiated game object.</returns>
-        private GameObject CreateGameObjectExtendedFromPoolableItem()
-        {
-            return new GameObject("Some Game Object").AddComponent<SomePoolableItem>().gameObject;
-        }
-        
-        /// <summary>
-        /// Create default Pool Manager instance.
-        /// </summary>
-        /// <returns>Instantiated Pool Manager.</returns>
-        private PoolManager CreatePoolManagerInstance()
-        {
-            return new GameObject("Objects Pool").AddComponent<PoolManager>();
-        }
-        
-        /// <summary>
         /// The test checks the possibility of obtaining one game object from a filled game pool.
         /// </summary>
         [Test]
         public void GetSingleGameObjectFromPoolTest()
         {
             // Create
-            PoolManager pool = CreatePoolManagerInstance();
-            GameObject gameObject = CreateGameObjectExtendedFromPoolableItem();
+            PoolManager pool = TestUtils.CreatePoolManagerInstance();
+            GameObject gameObject = TestUtils.CreateGameObjectExtendedFromPoolableItem();
             pool.AddObjectToPool(gameObject);
             
             // Test Actions
@@ -59,11 +41,11 @@ namespace GoToApps.ObjectsPool.Tests
         public void GetMultipleGameObjectsFromPoolTest()
         {
             // Create
-            PoolManager pool = CreatePoolManagerInstance();
+            PoolManager pool = TestUtils.CreatePoolManagerInstance();
             int objectsCount = Random.Range(10, 100);
             for (int i = 0; i < objectsCount; i++)
             {
-                GameObject gameObject = CreateGameObjectExtendedFromPoolableItem();
+                GameObject gameObject = TestUtils.CreateGameObjectExtendedFromPoolableItem();
                 pool.AddObjectToPool(gameObject);
             }
             
