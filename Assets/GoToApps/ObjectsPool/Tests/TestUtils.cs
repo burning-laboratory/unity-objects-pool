@@ -22,7 +22,16 @@ namespace GoToApps.ObjectsPool.Tests
         {
             return new GameObject("Some Game Object").AddComponent<SomePoolableItem>().gameObject;
         }
-
+        
+        /// <summary>
+        /// Create a some game object contains a PoolableItem script.
+        /// </summary>
+        /// <returns>Instantiated game object.</returns>
+        public static GameObject CreateGameObjectExtendedFromPoolableItem(string name)
+        {
+            return new GameObject(name).AddComponent<SomePoolableItem>().gameObject;
+        }
+        
         /// <summary>
         /// Create a poolable item instance linked to game object.
         /// </summary>
@@ -31,16 +40,7 @@ namespace GoToApps.ObjectsPool.Tests
         {
             return new GameObject("Some Game Object").AddComponent<SomePoolableItem>();
         }
-        
-        /// <summary>
-        /// Create a poolable item instance linked to game object.
-        /// </summary>
-        /// <returns>Instantiated poolable item.</returns>
-        public static SomePoolableItem CreatePoolableItemExtendedFromPoolableItem(string name)
-        {
-            return new GameObject(name).AddComponent<SomePoolableItem>();
-        }
-        
+
         /// <summary>
         /// Return random prefabs template.
         /// </summary>
