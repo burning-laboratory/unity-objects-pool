@@ -20,6 +20,7 @@ namespace GoToApps.ObjectsPool.Tests
             PoolManager pool = TestUtils.CreatePoolManagerInstance();
             GameObject prefab = TestUtils.CreateGameObjectExtendedFromPoolableItem();
             pool.SetPoolPrefab(prefab);
+            pool.SetCreateOversizePrefabs(true);
             
             // Test Actions
             GameObject gm = pool.GetObjectFromPool();
@@ -44,6 +45,7 @@ namespace GoToApps.ObjectsPool.Tests
             PoolManager pool = TestUtils.CreatePoolManagerInstance();
             GameObject prefab = TestUtils.CreateGameObjectExtendedFromPoolableItem();
             pool.SetPoolPrefab(prefab);
+            pool.SetCreateOversizePrefabs(true);
             int count = Random.Range(0, 50);
             
             // Test Actions
@@ -72,6 +74,7 @@ namespace GoToApps.ObjectsPool.Tests
             PoolManager pool = TestUtils.CreatePoolManagerInstance();
             GameObject prefab = TestUtils.CreateGameObjectExtendedFromPoolableItem();
             pool.SetPoolPrefab(prefab);
+            pool.SetCreateOversizePrefabs(true);
             
             // Test Actions
             PoolableItem item = pool.GetItemFromPool();
@@ -97,6 +100,7 @@ namespace GoToApps.ObjectsPool.Tests
             PoolManager pool = TestUtils.CreatePoolManagerInstance();
             GameObject prefab = TestUtils.CreateGameObjectExtendedFromPoolableItem();
             pool.SetPoolPrefab(prefab);
+            pool.SetCreateOversizePrefabs(true);
             int count = Random.Range(0, 50);
             
             // Test Actions
