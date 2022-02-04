@@ -18,7 +18,7 @@ namespace GoToApps.ObjectsPool.Utils
             GameObject instantiatedGm = Object.Instantiate(prefab, parent);
             if (instantiatedGm.TryGetComponent(out PoolableItem poolableItem))
             {
-                poolableItem.SetPool(pool);
+                poolableItem.SetParentPool(pool);
                 poolableItem.gameObject.SetActive(false);
                 return poolableItem;   
             }
