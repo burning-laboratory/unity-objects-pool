@@ -250,6 +250,7 @@ namespace GoToApps.ObjectsPool
         public void AddItemToPool(PoolableItem poolableItem)
         {
             GameObject item = poolableItem.gameObject;
+            poolableItem.SetPool(this);
             item.transform.SetParent(_poolParentTransform);
             item.SetActive(false);
             
@@ -268,10 +269,7 @@ namespace GoToApps.ObjectsPool
         /// <param name="item">Game object.</param>
         public void AddObjectToPool(GameObject item)
         {
-            if (item.TryGetComponent(out PoolableItem poolableItem))
-            {
-                AddItemToPool(poolableItem);
-            }
+            if (item.TryGetComponent(out PoolableItem poolableItem)) AddItemToPool(poolableItem);
             else throw new ObjectsPoolException("PoolableItem component not found on instantiated game object.");
         }
         
@@ -281,14 +279,7 @@ namespace GoToApps.ObjectsPool
         /// <param name="poolableItems">Poolable items</param>
         public void AddItemsToPool(List<PoolableItem> poolableItems)
         {
-            foreach (PoolableItem poolableItem in poolableItems)
-            {
-                GameObject item = poolableItem.gameObject;
-                item.transform.SetParent(_poolParentTransform);
-                item.SetActive(false);
-                _pool.Enqueue(poolableItem);
-            }
-
+            foreach (PoolableItem poolableItem in poolableItems) AddItemToPool(poolableItem);
             if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
