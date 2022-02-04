@@ -12,7 +12,7 @@ namespace GoToApps.ObjectsPool
         /// <summary>
         /// Return reference to linked pool.
         /// </summary>
-        public PoolManager GetParentPool => _pool;
+        public PoolManager ParentPool => _pool;
         
         /// <summary>
         /// Set parent object pool.
