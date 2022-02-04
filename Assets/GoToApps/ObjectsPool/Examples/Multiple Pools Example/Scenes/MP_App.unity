@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolParentTransform: {fileID: 549254364}
+  _createOversizePrefabs: 1
   _dontDestroyOnLoad: 1
   _poolManagerDataPlayerPrefsKey: SomeKey
   _selfInitialize: 1
@@ -310,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolParentTransform: {fileID: 588312003}
+  _createOversizePrefabs: 0
   _dontDestroyOnLoad: 1
   _poolManagerDataPlayerPrefsKey: Blocks Pool Key
   _selfInitialize: 1
@@ -482,7 +484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -92.49994}
+  m_AnchoredPosition: {x: 0, y: -92.5}
   m_SizeDelta: {x: 0, y: 185}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &662851713
@@ -1402,7 +1404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 137.49994}
+  m_AnchoredPosition: {x: 0, y: 137.5}
   m_SizeDelta: {x: 0, y: 275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2060070068
