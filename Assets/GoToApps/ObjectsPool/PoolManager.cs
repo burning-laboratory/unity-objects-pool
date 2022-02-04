@@ -250,7 +250,7 @@ namespace GoToApps.ObjectsPool
         public void AddItemToPool(PoolableItem poolableItem)
         {
             GameObject item = poolableItem.gameObject;
-            poolableItem.SetPool(this);
+            poolableItem.SetParentPool(this);
             item.transform.SetParent(_poolParentTransform);
             item.SetActive(false);
             
