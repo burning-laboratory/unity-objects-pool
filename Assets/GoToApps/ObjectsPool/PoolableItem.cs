@@ -10,10 +10,15 @@ namespace GoToApps.ObjectsPool
         private PoolManager _pool;
         
         /// <summary>
+        /// Return reference to linked pool.
+        /// </summary>
+        public PoolManager GetParentPool => _pool;
+        
+        /// <summary>
         /// Set parent object pool.
         /// </summary>
         /// <param name="pool">Pool manager</param>
-        public void SetPool(PoolManager pool) => _pool = pool;
+        public void SetParentPool(PoolManager pool) => _pool = pool;
         
         /// <summary>
         /// Return game object to parent pool.
