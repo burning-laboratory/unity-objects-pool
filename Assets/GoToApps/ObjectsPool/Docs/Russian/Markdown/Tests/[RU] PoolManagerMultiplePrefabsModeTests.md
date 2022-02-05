@@ -10,7 +10,7 @@
 - **-** **`CreateMultipleOversizeGameObjectsForMultiplePrefabsModeWithoutCreateAll`** - Проверяет автоматическое создание множества игровых объектов в пустом пуле, в режиме заполнения множеством врефабов с выключенным параметром `Create All`. 
 
 
-- **-** **`CreateSingleOversizeGameObjectForMultiplePrefabsModeWithCreateAll`** -  - Проверяет автоматическое одного игрового объекта в пустом пуле, в режиме заполнения множеством префабов с включенным параметром `Create All`.
+- **-** **`CreateSingleOversizeGameObjectForMultiplePrefabsModeWithCreateAll`** -  Проверяет автоматическое одного игрового объекта в пустом пуле, в режиме заполнения множеством префабов с включенным параметром `Create All`.
 
 
 - **-** **`CreateMultipleOversizeGameObjectsForMultiplePrefabsModeWithCreateAll`** - Проверяет автоматическое создание множества игровых объектов в пустом пуле, в режиме заполнения множеством врефабов с включенным параметром `Create All`.
