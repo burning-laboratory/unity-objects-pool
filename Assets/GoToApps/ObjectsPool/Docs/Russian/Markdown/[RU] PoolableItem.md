@@ -2,11 +2,15 @@
 
 > Компонент реализующий в себе обертку объекта пула.
 
+## Свойства:
+
+- **-** **`PoolableItem.ParentPool`** **`PoolManager`** - Ссылка на пул к которому привязан объект.
+
 ## Методы:
 
 > Все методы должны вызываться у созданного экземпляра компонента Poolable Item.
 
-- **-** **`PoolableItem.SetPool(PoolManager)`** **`void`** - Устанавливает объекту пул.
+- **-** **`PoolableItem.SetParentPool(PoolManager)`** **`void`** - Устанавливает объекту пул.
 
 
 - **-** **`PoolableItem.ReturnToPool()`** **`void`** - Вовзрат объекта в пул.
