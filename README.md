@@ -4,7 +4,7 @@
 
 <p align="center">
    <img src="https://img.shields.io/badge/Engine-Unity%202020.3.4.f1-blueviolet" alt="Unity Version">
-   <img src="https://img.shields.io/badge/Version-v1.0%20(Alpha)-blue" alt="Game Version">
+   <img src="https://img.shields.io/badge/Version-v1.1%20(Alpha)-blue" alt="Game Version">
    <img src="https://img.shields.io/badge/License-MIT-success" alt="License">
 </p>
 
@@ -12,15 +12,16 @@
 
 A ready-made implementation of a pool of game objects for Unity. This asset supports automatic initialization, so you do not need to initialize the game pool from outside, you can simply click the Initialize In checkmark, specify the necessary settings and the pool will be initialized automatically when the game starts.
 
+### What's new in version 1.1?
+
+- Updated self initialization system.
+- Add don't destroy on load control.
+- Add assembly definitions.
+- Add simple unit tests.
+
 ## Documentation
 
- - [Pool Manager Documentation](https://drive.google.com/file/d/1AiGWUkBicVnyl6jIwT7Xn0O5oWFdoFO0/view?usp=sharing)
-
-
-- [Poolable Item Documentation](https://drive.google.com/file/d/1JeHIPyzzHolRyt1vXvvNJgxIFiGjl8_w/view?usp=sharing)
-
-
-- [Initialize In Documentation](https://drive.google.com/file/d/1WA5DBhSDW5pCtMlhYDFu7P5jZcb2K8W2/view?usp=sharing)
+- [Pool Manager Documentation](https://drive.google.com/drive/folders/1iJ_zN-gw_4wG1jbkJX5_uQkl_hq4OzZB?usp=sharing)
 
 ## Distribute
 
