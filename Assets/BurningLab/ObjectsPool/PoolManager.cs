@@ -4,7 +4,6 @@ using System.Linq;
 using BurningLab.ObjectsPool.Exceptions;
 using BurningLab.ObjectsPool.Types;
 using BurningLab.ObjectsPool.Utils;
-using GoToApps.ObjectsPool;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
