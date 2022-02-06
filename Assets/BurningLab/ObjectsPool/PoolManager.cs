@@ -51,6 +51,7 @@ namespace BurningLab.ObjectsPool
         [Tooltip("The need to create each object from the list. Enabling this parameter ensures that after initialization, all the objects from the list above will be in the pool.")]
         [SerializeField] private bool _createAllObjects;
 
+#if DEBUG_BURNING_LAB_SDK
         [Tooltip("Show debug logs.")]
         [SerializeField] private bool _showDebugLogs;
         
@@ -62,6 +63,7 @@ namespace BurningLab.ObjectsPool
 
         [Tooltip("Responsible for outputting logs of the background instance monitoring module. `ContDestroyOnLoad`.")] 
         [SerializeField] private bool _showBackgroundControlLogs;
+#endif
 
         private readonly Queue<PoolableItem> _pool = new Queue<PoolableItem>();
         
@@ -155,15 +157,16 @@ namespace BurningLab.ObjectsPool
             {
                 _pool.Enqueue(poolableItem);
             }
-            
+
+#if DEBUG_BURNING_LAB_SDK
             if (_showDebugLogs && _showPoolInitializerLogs)
             {
                 GameObject context = gameObject;
                 DateTime endDt = DateTime.Now;
                 TimeSpan initializeDelayTs = endDt - startDt;
-                
                 UnityConsole.PrintLog("PoolManager", "InitializePool", $"{context.name} initialized in: {initializeDelayTs.TotalMilliseconds}ms.", context);
             }   
+#endif
             _initialized = true;
         }
 
@@ -173,7 +176,9 @@ namespace BurningLab.ObjectsPool
             {
                 if (PlayerPrefs.HasKey(_poolManagerDataPlayerPrefsKey))
                 {
+#if DEBUG_BURNING_LAB_SDK
                     if (_showBackgroundControlLogs) UnityConsole.PrintLog("PoolManager", "Awake", "Duplicated pool destroyed.", gameObject);
+#endif
                     Destroy(gameObject);
                 }
                 else
@@ -182,11 +187,13 @@ namespace BurningLab.ObjectsPool
                     PlayerPrefs.SetInt(_poolManagerDataPlayerPrefsKey, _instanceId);
                     DontDestroyOnLoad(gameObject);
 
+#if DEBUG_BURNING_LAB_SDK
                     if (_showBackgroundControlLogs)
                     {
                         GameObject gm = gameObject;
                         UnityConsole.PrintLog("PoolManager", "Awake", $"{gm.name} mark as dont destroy on load.", gm);
                     }
+#endif
                 }
             }
             if (_poolParentTransform == null) _poolParentTransform = transform;
@@ -204,7 +211,9 @@ namespace BurningLab.ObjectsPool
             if (_dontDestroyOnLoad)
             {
                 if(PlayerPrefs.HasKey(_poolManagerDataPlayerPrefsKey)) PlayerPrefs.DeleteKey(_poolManagerDataPlayerPrefsKey);
+#if DEBUG_BURNING_LAB_SDK
                 if (_showBackgroundControlLogs) UnityConsole.PrintLog("PoolManager", "OnApplicationQuit", "Pool metadata deleted.", gameObject);
+#endif
             }
 #endif
         }
@@ -215,7 +224,9 @@ namespace BurningLab.ObjectsPool
             if (_dontDestroyOnLoad)
             {
                 if(PlayerPrefs.HasKey(_poolManagerDataPlayerPrefsKey)) PlayerPrefs.DeleteKey(_poolManagerDataPlayerPrefsKey);
+#if DEBUG_BURNING_LAB_SDK
                 if (_showBackgroundControlLogs) UnityConsole.PrintLog("PoolManager", "OnApplicationPause", "Pool metadata deleted.", gameObject);
+#endif
             }
 #endif
         }
@@ -226,12 +237,9 @@ namespace BurningLab.ObjectsPool
         public PoolManager()
         {
             _initialized = false;
-            _showDebugLogs = true;
             _selfInitialize = true;
             _createAllObjects = false;
             _initializeIn = InitializeIn.Custom;
-            _showPoolOperationLogs = true;
-            _showPoolInitializerLogs = true;
         }
         
         /// <summary>
@@ -255,12 +263,14 @@ namespace BurningLab.ObjectsPool
             item.SetActive(false);
             
             _pool.Enqueue(poolableItem);
-            
+
+#if DEBUG_BURNING_LAB_SDK
             if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
                 UnityConsole.PrintLog("PoolManager", "AddItemToPool", $"{item.name} add to {context.name}", context);
             }
+#endif
         }
         
         /// <summary>
@@ -280,11 +290,13 @@ namespace BurningLab.ObjectsPool
         public void AddItemsToPool(List<PoolableItem> poolableItems)
         {
             foreach (PoolableItem poolableItem in poolableItems) AddItemToPool(poolableItem);
+#if DEBUG_BURNING_LAB_SDK
             if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
                 UnityConsole.PrintLog("PoolManager", "AddItemsToPool", $"{poolableItems.Count} items added to pool.", context);
             }
+#endif
         }
         
         /// <summary>
@@ -313,23 +325,27 @@ namespace BurningLab.ObjectsPool
             {
                 PoolableItem newPoolableItem = PoolInitializer.CreateGameObject(PoolPrefab, _poolParentTransform, this);
                 _pool.Enqueue(newPoolableItem);
-                
+
+#if DEBUG_BURNING_LAB_SDK
                 if (_showDebugLogs && _showPoolOperationLogs)
                 {
                     GameObject context = gameObject;
                     UnityConsole.PrintLog("PoolManager", "GetItemFromPool", $"New {newPoolableItem.name} prefab instantiated and added to {name}..", context);
                 }
+#endif
             }
 
             PoolableItem poolableItemFromPool = _pool.Dequeue();
             GameObject item = poolableItemFromPool.gameObject;
             item.gameObject.SetActive(true);
-            
+
+#if DEBUG_BURNING_LAB_SDK
             if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
                 UnityConsole.PrintLog("PoolManager", "GetItemFromPool", $"{item.name} returned from {context.name}", context);
             }
+#endif
             return poolableItemFromPool;
         }
         
@@ -357,13 +373,15 @@ namespace BurningLab.ObjectsPool
                 item.gameObject.SetActive(true);
                 items.Add(item);
             }
-            
+
+#if DEBUG_BURNING_LAB_SDK
             if (_showDebugLogs && _showPoolOperationLogs)
             {
                 GameObject context = gameObject;
                 PoolableItem item = items.First();
                 UnityConsole.PrintLog("PoolManager", "GetItemsFromPool", $"{count} {item.name}s returned from {context.name}", context);
             }
+#endif
             return items;
         }
         

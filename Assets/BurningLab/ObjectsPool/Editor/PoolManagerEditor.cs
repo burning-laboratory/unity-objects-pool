@@ -23,10 +23,13 @@ namespace BurningLab.ObjectsPool.Editor
         private SerializedProperty _initializePoolSize;
         private SerializedProperty _iterationsCount;
         private SerializedProperty _createAllObjects;
+        
+#if DEBUG_BURNING_LAB_SDK
         private SerializedProperty _showDebugLogs;
         private SerializedProperty _showPoolInitializerLogs;
         private SerializedProperty _showPoolOperationLogs;
         private SerializedProperty _showBackgroundControlLogs;
+#endif
         
         
         private void OnEnable()
@@ -45,10 +48,13 @@ namespace BurningLab.ObjectsPool.Editor
             _initializePoolSize = serializedObject.FindProperty("_initializePoolSize");
             _iterationsCount = serializedObject.FindProperty("_iterationsCount");
             _createAllObjects = serializedObject.FindProperty("_createAllObjects");
+            
+#if DEBUG_BURNING_LAB_SDK
             _showDebugLogs = serializedObject.FindProperty("_showDebugLogs");
             _showPoolOperationLogs = serializedObject.FindProperty("_showPoolOperationLogs");
             _showPoolInitializerLogs = serializedObject.FindProperty("_showPoolInitializerLogs");
             _showBackgroundControlLogs = serializedObject.FindProperty("_showBackgroundControlLogs");
+#endif
         }
 
         private void DrawFields()
@@ -90,6 +96,7 @@ namespace BurningLab.ObjectsPool.Editor
                 EditorGUILayout.PropertyField(_initializeIn);
             }
 
+#if DEBUG_BURNING_LAB_SDK
             EditorGUILayout.PropertyField(_showDebugLogs);
             bool showDebugLogs = _showDebugLogs.boolValue;
             if (showDebugLogs)
@@ -98,6 +105,7 @@ namespace BurningLab.ObjectsPool.Editor
                 EditorGUILayout.PropertyField(_showPoolOperationLogs);
                 EditorGUILayout.PropertyField(_showBackgroundControlLogs);
             }
+#endif
         }
 
         private void OnChanged(GameObject obj)
