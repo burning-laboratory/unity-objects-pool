@@ -29,7 +29,10 @@ namespace DefaultNamespace
                 Debug.LogException(new Exception("Build Fail! Please Check the log! "));
             }       
         }
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public static void BuildMultiplePoolDemoApp()
         {
             var outdir = Environment.CurrentDirectory + "/Builds/Android";
