@@ -1,0 +1,18 @@
+{
+    "name": "ObjectsPool.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:dab92cef7fe1fe8fa9774c6cfe3d3ac9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
