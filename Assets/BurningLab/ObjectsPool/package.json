@@ -1,0 +1,39 @@
+{
+  "name": "com.burning-lab.objectspool",
+  "version": "0.0.1",
+  "displayName": "Objects Pool",
+  "description": "Unity game objects pool management system.",
+  "unity": "2020.3",
+  "documentationUrl": "https://burning-lab.youtrack.cloud/articles/OP-A-1/Dokumentatsiya",
+  "changelogUrl": "https://github.com/burning-laboratory/unity-objects-pool/releases",
+  "licensesUrl": "https://github.com/burning-laboratory/unity-objects-pool/blob/main/LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/burning-laboratory/unity-objects-pool.git"
+  },
+  "keywords": [
+    "Unity",
+    "Objects",
+    "Pool"
+  ],
+  "scripts": {
+    "build": "node ./BuildUtils/BuildUtils.js"
+  },
+  "author": {
+    "name": "Burning-Lab",
+    "email": "packages.support@burning-lab.com",
+    "url": "https://burning-lab.com"
+  },
+  "samples": [
+    {
+      "displayName": "Single pool demo app",
+      "description": "Single objects pool demo application.",
+      "path": "Examples/Single Pool Example"
+    },
+    {
+      "displayName": "Multiple pools demo app",
+      "description": "Multiple object pools demo application.",
+      "path": "Examples/Multiple Pool Example"
+    }
+  ]
+}
