@@ -1,7 +1,11 @@
 {
     "name": "ObjectsPool",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "ObjectsPool.Exceptions",
+        "ObjectsPool.Utils",
+        "ObjectsPool.Types"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

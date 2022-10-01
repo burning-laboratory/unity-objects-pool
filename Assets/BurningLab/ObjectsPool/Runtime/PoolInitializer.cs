@@ -13,12 +13,11 @@ namespace BurningLab.ObjectsPool.Utils
         /// </summary>
         /// <param name="prefab">Poolable prefab.</param>
         /// <returns>Instantiated game object.</returns>
-        public static PoolableItem CreateGameObject(GameObject prefab, Transform parent, PoolManager pool)
+        public static PoolableItem CreateGameObject(GameObject prefab, Transform parent)
         {
             GameObject instantiatedGm = Object.Instantiate(prefab, parent);
             if (instantiatedGm.TryGetComponent(out PoolableItem poolableItem))
             {
-                poolableItem.SetParentPool(pool);
                 poolableItem.gameObject.SetActive(false);
                 return poolableItem;   
             }
