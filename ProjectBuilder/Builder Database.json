@@ -1,0 +1,50 @@
+{
+    "buildsDirectory": "Builds",
+    "configurations": [
+        {
+            "_expanded": false,
+            "name": "[ANDROID] Build Single Pool Demo App",
+            "targetPlatform": 13,
+            "outputFolder": "Android",
+            "artifactName": "single-pool-demo.apk",
+            "buildAndroidAppBundle": false,
+            "exportProject": false,
+            "developmentBuild": true,
+            "_scenesExpanded": false,
+            "scenes": [
+                {
+                    "_expanded": false,
+                    "name": "SP_App",
+                    "path": "Assets/BurningLab/ObjectsPool/Examples/Single Pool Example/Scenes/SP_App.unity"
+                }
+            ],
+            "_definesExpanded": false,
+            "defines": []
+        },
+        {
+            "_expanded": false,
+            "name": "[ANDROID] Build Multiple Pool Demo App",
+            "targetPlatform": 13,
+            "outputFolder": "Android",
+            "artifactName": "multiple-pool-demo.apk",
+            "buildAndroidAppBundle": false,
+            "exportProject": false,
+            "developmentBuild": true,
+            "_scenesExpanded": false,
+            "scenes": [
+                {
+                    "_expanded": false,
+                    "name": "MP_App",
+                    "path": "Assets/BurningLab/ObjectsPool/Examples/Multiple Pools Example/Scenes/MP_App.unity"
+                }
+            ],
+            "_definesExpanded": false,
+            "defines": []
+        }
+    ],
+    "defines": [
+        "NONE",
+        "DEBUG_BURNING_LAB_SDK",
+        "DEBUG_PROJECT_BUILDER"
+    ]
+}

@@ -1,13 +1,11 @@
 {
-    "name": "ObjectsPool.Editor",
+    "name": "ObjectsPool.Utils",
     "rootNamespace": "",
     "references": [
-        "GUID:dab92cef7fe1fe8fa9774c6cfe3d3ac9",
-        "GUID:bfcdf76a5d75a164093604649c3f3428"
+        "ObjectsPool.Types",
+        "ObjectsPool.Exceptions"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
