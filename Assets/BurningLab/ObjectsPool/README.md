@@ -5,7 +5,7 @@
 <p align="center">
    <img src="https://build.burning-lab.com/app/rest/builds/buildType:id:UnityAssets_ComBurningLabObjectspool_DevelopmentBuild/statusIcon.svg" alt="Unity Version">
    <img src="https://img.shields.io/badge/Engine-2020.3-blueviolet" alt="Unity Version">
-   <img src="https://img.shields.io/badge/Version-0.1.1-blue" alt="Game Version">
+   <img src="https://img.shields.io/badge/Version-0.1.2--exp-blue" alt="Game Version">
    <img src="https://img.shields.io/badge/License-MIT-success" alt="License">
 </p>
 
