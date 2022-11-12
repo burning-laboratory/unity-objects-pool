@@ -1,43 +1,50 @@
 {
-   "name": "com.burning-lab.objectspool",
-   "version": "0.1.2-exp",
-   "displayName": "Objects Pool",
-   "description": "Unity game objects pool management system.",
-   "unity": "2020.3",
-   "documentationUrl": "https://burning-lab.youtrack.cloud/articles/OP-A-1/Dokumentatsiya",
-   "changelogUrl": "https://github.com/burning-laboratory/unity-objects-pool/releases",
-   "licensesUrl": "https://github.com/burning-laboratory/unity-objects-pool/blob/main/LICENSE",
-   "repository": {
-      "type": "git",
-      "url": "https://github.com/burning-laboratory/unity-objects-pool.git"
-   },
-   "keywords": [
-      "Unity",
-      "Objects",
-      "Pool"
-   ],
-   "scripts": {
-      "build": "node ./node_modules/com.burning-lab.utils.js-build-utils/ReadmeBuilder.js",
-      "set-suffix": "node ./node_modules/com.burning-lab.utils.js-build-utils/ReleaseSuffixSetter.js"
-   },
-   "devDependencies": {
-      "com.burning-lab.utils.js-build-utils": "^0.0.8"
-   },
-   "author": {
-      "name": "Burning-Lab",
-      "email": "packages.support@burning-lab.com",
-      "url": "https://burning-lab.com"
-   },
-   "samples": [
-      {
-         "displayName": "Single pool demo app",
-         "description": "Single objects pool demo application.",
-         "path": "Examples/Single Pool Example"
-      },
-      {
-         "displayName": "Multiple pools demo app",
-         "description": "Multiple object pools demo application.",
-         "path": "Examples/Multiple Pools Example"
-      }
-   ]
+  "name": "com.burning-lab.objectspool",
+  "version": "0.1.2-exp",
+  "displayName": "Objects Pool",
+  "description": "Unity game objects pool management system.",
+  "unity": "2021.3",
+  "documentationUrl": "https://burning-lab.youtrack.cloud/articles/OP-A-1/Objects-Pool-Dokumentatsiya",
+  "changelogUrl": "https://github.com/burning-laboratory/unity-objects-pool/releases",
+  "licensesUrl": "https://github.com/burning-laboratory/unity-objects-pool/blob/main/LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/burning-laboratory/unity-objects-pool.git"
+  },
+  "keywords": [
+    "Unity",
+    "Objects",
+    "Pool"
+  ],
+  "scripts": {
+    "build": "node ./node_modules/com.burning-lab.utils.js-build-utils/Bin/ReadmeBuilder.js",
+    "set-suffix": "node ./node_modules/com.burning-lab.utils.js-build-utils/Bin/ReleaseSuffixSetter.js",
+    "clear-suffix": "node ./node_modules/com.burning-lab.utils.js-build-utils/Bin/ClearVersionSuffix.js",
+    "cache-dependencies": "node ./node_modules/com.burning-lab.utils.js-build-utils/Bin/DependenciesSaver.js",
+    "load-dependencies": "node ./node_modules/com.burning-lab.utils.js-build-utils/Bin/DependenciesLoader.js",
+    "restore-dependencies": "node ./node_modules/com.burning-lab.utils.js-build-utils/Bin/DependencyRestore.js",
+    "process-samples": "node ./node_modules/com.burning-lab.utils.js-build-utils/Bin/SamplesProcessor.js",
+    "restore-samples": "node ./node_modules/com.burning-lab.utils.js-build-utils/Bin/SamplesRestore.js"
+  },
+  "devDependencies": {
+    "com.burning-lab.utils.js-build-utils": "^0.1.10"
+  },
+  "author": {
+    "name": "Burning-Lab",
+    "email": "packages.support@burning-lab.com",
+    "url": "https://burning-lab.com"
+  },
+  "samples": [
+    {
+      "displayName": "Single pool demo app",
+      "description": "Single objects pool demo application.",
+      "path": "Samples/Single Pool Example"
+    },
+    {
+      "displayName": "Multiple pools demo app",
+      "description": "Multiple object pools demo application.",
+      "path": "Samples/Multiple Pools Example"
+    }
+  ]
 }
+
