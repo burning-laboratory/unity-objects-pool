@@ -1,8 +1,15 @@
 {
     "buildsDirectory": "Builds",
+    "addressableContent": {
+        "_expanded": false,
+        "buildAddressableContent": false,
+        "settingsAssetPath": "",
+        "profileName": "",
+        "buildScript": ""
+    },
     "configurations": [
         {
-            "_expanded": false,
+            "_expanded": true,
             "name": "[ANDROID] Build Single Pool Demo App",
             "targetPlatform": 13,
             "outputFolder": "Android",
@@ -10,19 +17,19 @@
             "buildAndroidAppBundle": false,
             "exportProject": false,
             "developmentBuild": true,
-            "_scenesExpanded": false,
+            "_scenesExpanded": true,
             "scenes": [
                 {
                     "_expanded": false,
                     "name": "SP_App",
-                    "path": "Assets/BurningLab/ObjectsPool/Examples/Single Pool Example/Scenes/SP_App.unity"
+                    "path": "Assets/BurningLab/ObjectsPool/Samples/Single Pool Example/Scenes/SP_App.unity"
                 }
             ],
-            "_definesExpanded": false,
+            "_definesExpanded": true,
             "defines": []
         },
         {
-            "_expanded": false,
+            "_expanded": true,
             "name": "[ANDROID] Build Multiple Pool Demo App",
             "targetPlatform": 13,
             "outputFolder": "Android",
@@ -30,12 +37,12 @@
             "buildAndroidAppBundle": false,
             "exportProject": false,
             "developmentBuild": true,
-            "_scenesExpanded": false,
+            "_scenesExpanded": true,
             "scenes": [
                 {
                     "_expanded": false,
                     "name": "MP_App",
-                    "path": "Assets/BurningLab/ObjectsPool/Examples/Multiple Pools Example/Scenes/MP_App.unity"
+                    "path": "Assets/BurningLab/ObjectsPool/Samples/Multiple Pools Example/Scenes/MP_App.unity"
                 }
             ],
             "_definesExpanded": false,
