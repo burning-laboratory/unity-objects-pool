@@ -1,9 +1,9 @@
 {
   "name": "com.burning-lab.objectspool",
-  "version": "0.0.1",
+  "version": "0.1.2-exp",
   "displayName": "Objects Pool",
   "description": "Unity game objects pool management system.",
-  "unity": "2020.3",
+  "unity": "2021.3",
   "documentationUrl": "https://burning-lab.youtrack.cloud/articles/OP-A-1/Objects-Pool-Dokumentatsiya",
   "changelogUrl": "https://github.com/burning-laboratory/unity-objects-pool/releases",
   "licensesUrl": "https://github.com/burning-laboratory/unity-objects-pool/blob/main/LICENSE",
@@ -47,3 +47,4 @@
     }
   ]
 }
+
