@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/BurningLab/ObjectsPool/Samples/Multiple Pools Example/Scenes/MP_App.unity
+    guid: 040a798af946c7666924da2ec9f153a2
   m_configObjects: {}
