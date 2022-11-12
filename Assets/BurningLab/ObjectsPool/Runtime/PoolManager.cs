@@ -187,11 +187,8 @@ namespace BurningLab.ObjectsPool
             _pool.Enqueue(poolableItem);
 
 #if DEBUG_BURNING_LAB_SDK
-            if (_showDebugLogs && _showPoolOperationLogs)
-            {
-                GameObject context = gameObject;
-                UnityConsole.PrintLog("PoolManager", "AddItemToPool", $"{item.name} add to {context.name}", context);
-            }
+            GameObject context = gameObject;
+            UnityConsole.PrintLog("PoolManager", "AddItemToPool", $"{item.name} add to {context.name}", context);
 #endif
         }
         
@@ -212,12 +209,10 @@ namespace BurningLab.ObjectsPool
         public void AddItemsToPool(List<PoolableItem> poolableItems)
         {
             foreach (PoolableItem poolableItem in poolableItems) AddItemToPool(poolableItem);
+            
 #if DEBUG_BURNING_LAB_SDK
-            if (_showDebugLogs && _showPoolOperationLogs)
-            {
-                GameObject context = gameObject;
-                UnityConsole.PrintLog("PoolManager", "AddItemsToPool", $"{poolableItems.Count} items added to pool.", context);
-            }
+            GameObject context = gameObject;
+            UnityConsole.PrintLog("PoolManager", "AddItemsToPool", $"{poolableItems.Count} items added to pool.", context);
 #endif
         }
         
@@ -276,18 +271,15 @@ namespace BurningLab.ObjectsPool
             List<PoolableItem> items = new List<PoolableItem>();
             for (int i = 0; i < count; i++)
             {
-                PoolableItem item = GetItemFromPool();
-                item.gameObject.SetActive(true);
-                items.Add(item);
+                PoolableItem itemFromPool = GetItemFromPool();
+                itemFromPool.gameObject.SetActive(true);
+                items.Add(itemFromPool);
             }
 
 #if DEBUG_BURNING_LAB_SDK
-            if (_showDebugLogs && _showPoolOperationLogs)
-            {
-                GameObject context = gameObject;
-                PoolableItem item = items.First();
-                UnityConsole.PrintLog("PoolManager", "GetItemsFromPool", $"{count} {item.name}s returned from {context.name}", context);
-            }
+            GameObject context = gameObject;
+            PoolableItem item = items.First();
+            UnityConsole.PrintLog("PoolManager", "GetItemsFromPool", $"{count} {item.name}s returned from {context.name}", context);
 #endif
             return items;
         }

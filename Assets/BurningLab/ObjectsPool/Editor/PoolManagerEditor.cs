@@ -13,8 +13,6 @@ namespace BurningLab.ObjectsPool.Editor
 
         private SerializedProperty _poolParentTransform;
         private SerializedProperty _createOversizePrefabs;
-        private SerializedProperty _dontDestroyOnLoad;
-        private SerializedProperty _poolManagerDataPlayerPrefsKey;
         private SerializedProperty _selfInitialize;
         private SerializedProperty _initializeIn;
         private SerializedProperty _initializeMode;
@@ -31,8 +29,6 @@ namespace BurningLab.ObjectsPool.Editor
 
             _poolParentTransform = serializedObject.FindProperty("_poolParentTransform");
             _createOversizePrefabs = serializedObject.FindProperty("_createOversizePrefabs");
-            _dontDestroyOnLoad = serializedObject.FindProperty("_dontDestroyOnLoad");
-            _poolManagerDataPlayerPrefsKey = serializedObject.FindProperty("_poolManagerDataPlayerPrefsKey");
             _selfInitialize = serializedObject.FindProperty("_selfInitialize");
             _initializeIn = serializedObject.FindProperty("_initializeIn");
             _initializeMode = serializedObject.FindProperty("_initializeMode");
@@ -49,12 +45,7 @@ namespace BurningLab.ObjectsPool.Editor
             EditorGUILayout.PropertyField(_poolParentTransform);
 
             EditorGUILayout.PropertyField(_createOversizePrefabs);
-            
-            EditorGUILayout.PropertyField(_dontDestroyOnLoad);
-            bool dontDestroyOnLoad = _dontDestroyOnLoad.boolValue;
-            if (dontDestroyOnLoad) EditorGUILayout.PropertyField(_poolManagerDataPlayerPrefsKey);
-            
-            
+
             EditorGUILayout.PropertyField(_selfInitialize);
             bool selfInitialize = _selfInitialize.boolValue;
             if (selfInitialize)
