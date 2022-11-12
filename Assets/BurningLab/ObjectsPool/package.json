@@ -1,6 +1,6 @@
 {
    "name": "com.burning-lab.objectspool",
-   "version": "0.1.3-pre",
+   "version": "0.1.4",
    "displayName": "Objects Pool",
    "description": "Unity game objects pool management system.",
    "unity": "2021.3",
