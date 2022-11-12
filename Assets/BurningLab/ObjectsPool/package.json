@@ -38,12 +38,12 @@
     {
       "displayName": "Single pool demo app",
       "description": "Single objects pool demo application.",
-      "path": "Examples/Single Pool Example"
+      "path": "Samples/Single Pool Example"
     },
     {
       "displayName": "Multiple pools demo app",
       "description": "Multiple object pools demo application.",
-      "path": "Examples/Multiple Pools Example"
+      "path": "Samples/Multiple Pools Example"
     }
   ]
 }
