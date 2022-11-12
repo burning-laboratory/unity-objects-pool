@@ -21,7 +21,7 @@
     "set-suffix": "node ./node_modules/com.burning-lab.utils.js-build-utils/ReleaseSuffixSetter.js"
   },
   "devDependencies": {
-    "com.burning-lab.utils.js-build-utils": "^0.0.8"
+    "com.burning-lab.utils.js-build-utils": "^0.1.10"
   },
   "author": {
     "name": "Burning-Lab",
