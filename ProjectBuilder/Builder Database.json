@@ -9,49 +9,90 @@
     },
     "configurations": [
         {
-            "_expanded": true,
             "name": "[ANDROID] Build Single Pool Demo App",
-            "targetPlatform": 13,
             "outputFolder": "Android",
             "artifactName": "single-pool-demo.apk",
-            "buildAndroidAppBundle": false,
-            "exportProject": false,
+            "buildTarget": 13,
             "developmentBuild": true,
-            "_scenesExpanded": true,
+            "autoConnectProfiler": false,
+            "deepProfiling": false,
+            "scriptDebugging": false,
+            "waitForManagedDebugger": false,
+            "scriptsOnlyBuild": false,
+            "compressionMethod": 0,
+            "il2CppCodeGeneration": 0,
             "scenes": [
                 {
-                    "_expanded": false,
                     "name": "SP_App",
-                    "path": "Assets/BurningLab/ObjectsPool/Samples/Single Pool Example/Scenes/SP_App.unity"
+                    "path": "Assets/BurningLab/ObjectsPool/Samples/Single Pool Example/Scenes/SP_App.unity",
+                    "guid": "9928e5581cf52047bb44e3faac87e7b9"
                 }
             ],
-            "_definesExpanded": true,
-            "defines": []
+            "defines": [],
+            "standaloneSubtarget": 0,
+            "standaloneCopyPdbFiles": false,
+            "standaloneCreateVisualStudioSolution": false,
+            "standaloneCreateXCodeProject": false,
+            "standaloneXCodeBuildConfig": 0,
+            "androidSubtarget": 0,
+            "androidETC2Fallback": 0,
+            "exportAsAndroidStudioProject": false,
+            "androidCreateSymbols": 0,
+            "symlinkSources": false,
+            "buildAndroidAppBundle": false,
+            "webGLTextureSubtarget": 0,
+            "webGlCodeOptimization": 0,
+            "iosXCodeBuildConfig": 0,
+            "companyName": "burninglab",
+            "productName": "objectspool",
+            "productVersion": "1.0",
+            "applicationIdentifier": "com.burninglab.objectspool",
+            "androidBundleVersionCode": 1,
+            "androidMinimumSdkVersion": 22,
+            "androidTargetSdkVersion": 0
         },
         {
-            "_expanded": true,
             "name": "[ANDROID] Build Multiple Pool Demo App",
-            "targetPlatform": 13,
             "outputFolder": "Android",
             "artifactName": "multiple-pool-demo.apk",
-            "buildAndroidAppBundle": false,
-            "exportProject": false,
+            "buildTarget": 13,
             "developmentBuild": true,
-            "_scenesExpanded": true,
+            "autoConnectProfiler": false,
+            "deepProfiling": false,
+            "scriptDebugging": false,
+            "waitForManagedDebugger": false,
+            "scriptsOnlyBuild": false,
+            "compressionMethod": 0,
+            "il2CppCodeGeneration": 0,
             "scenes": [
                 {
-                    "_expanded": false,
                     "name": "MP_App",
-                    "path": "Assets/BurningLab/ObjectsPool/Samples/Multiple Pools Example/Scenes/MP_App.unity"
+                    "path": "Assets/BurningLab/ObjectsPool/Samples/Multiple Pools Example/Scenes/MP_App.unity",
+                    "guid": "040a798af946c7666924da2ec9f153a2"
                 }
             ],
-            "_definesExpanded": false,
-            "defines": []
+            "defines": [],
+            "standaloneSubtarget": 0,
+            "standaloneCopyPdbFiles": false,
+            "standaloneCreateVisualStudioSolution": false,
+            "standaloneCreateXCodeProject": false,
+            "standaloneXCodeBuildConfig": 0,
+            "androidSubtarget": 0,
+            "androidETC2Fallback": 0,
+            "exportAsAndroidStudioProject": false,
+            "androidCreateSymbols": 0,
+            "symlinkSources": false,
+            "buildAndroidAppBundle": false,
+            "webGLTextureSubtarget": 0,
+            "webGlCodeOptimization": 0,
+            "iosXCodeBuildConfig": 0,
+            "companyName": "burninglab",
+            "productName": "objectspool",
+            "productVersion": "1.0",
+            "applicationIdentifier": "com.burninglab.objectspool",
+            "androidBundleVersionCode": 1,
+            "androidMinimumSdkVersion": 22,
+            "androidTargetSdkVersion": 0
         }
-    ],
-    "defines": [
-        "NONE",
-        "DEBUG_BURNING_LAB_SDK",
-        "DEBUG_PROJECT_BUILDER"
     ]
 }
